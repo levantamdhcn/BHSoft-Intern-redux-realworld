@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
+/* Header */
+
+.container-fluid {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 15px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  list-style-type: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar li {
+  font-size: 16px;
+  color: rgba(0,0,0,0.3)
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar li:first-child{
+  margin-left: 0;
+}
+
+.navbar li{
+  margin-left: 16px;
+}
+
+/* BANNER */
+
+.banner {
+  padding: 32px;
+  text-align: center;
+  background-color: #5cb85c;
+  box-shadow: inset 0 8px 8px -8px rgb(0 0 0 / 30%), inset 0 -8px 8px -8px rgb(0 0 0 / 30%);
+}
+
+.banner,.logo-font,.logo-slogan {
+  font-family: 'Titillium Web', 'sans-serif';
+  color: #fff;
+}
+
+.banner .logo-font {
+  font-weight: bold;
+  font-size: 56px;
+  margin-bottom: 0;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+}
+
+.banner .logo-slogan {
+  font-weight: 300;
+  font-size: 24px;
+  margin-bottom: 0;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+  margin-bottom: 0;
 }
