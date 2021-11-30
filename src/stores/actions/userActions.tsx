@@ -1,16 +1,38 @@
 import { ThunkDispatch } from "redux-thunk"
 import { AnyAction } from "redux"
 import { RootState } from "../stores"
-import { getPost } from '../../axios/index'
-import { GET_POST } from "./type"
+import { signIn } from '../../axios/index'
+import { SIGN_IN,GET_POST,SIGN_IN_SUCCESS } from "./constant"
 
-export const userLogin = () => async(dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
+interface SignInState {
+    email: string
+    password: string
+}
+
+export const signInAction = (email: string, password: string) => async(dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
     try {
-        const response = await getPost()
+        const response = await signIn({ email,password})
+        const data = response.data
+        dispatch({
+            type: SIGN_IN,
+            payload: data
+        })
+        dispatch({
+            type: SIGN_IN_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const signOutAction = ({ email, password }: SignInState) => async(dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
+    try {
+        const response = await signIn({ email,password})
         const data = response.data
         dispatch({
             type: GET_POST,
-            payload: data.articles
+            payload: data
         })
     } catch (error) {
         console.log(error)

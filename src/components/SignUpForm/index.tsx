@@ -60,9 +60,9 @@ const SignUp = () => {
               <Input.Password placeholder="Password"/>
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
+            <Form.Item wrapperCol={{ offset: 9, span: 24 }}>
+              <Button type="primary" htmlType="submit" className='ant-btn btn-submit'> 
+                Sign Up
               </Button>
             </Form.Item>
           </Form>

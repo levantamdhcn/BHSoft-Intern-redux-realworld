@@ -1,4 +1,4 @@
-import { GET_POST,ADD_POST } from '../actions/type'
+import { GET_POST,ADD_POST } from '../actions/constant'
 
 export interface Post {
     title?: string

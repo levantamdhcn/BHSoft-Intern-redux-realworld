@@ -18,13 +18,17 @@ const NewFeeds = () => {
   }, [])
 
   const posts = useSelector((state: any) => state.postReducers)
-  console.log(posts)
+  const isLogged = useSelector((state: any) => state.authReducers.token.authenticated)
+
   return (
     <div>
       <Tabs defaultActiveKey="1" className='newfeeds-holder'>
-            <TabPane tab="Your Feed" key="1">
-            Your Feed
-            </TabPane>
+            {
+              isLogged ? (<TabPane tab="Your Feed" key="1">
+                            Your Feed
+                          </TabPane>) 
+                      : ''
+            }
             <TabPane tab="Global Feed" key="2">
                 <ul className='post-list'>
                   {

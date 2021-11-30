@@ -1,0 +1,5 @@
+export const GET_POST = 'GET_POST'
+export const ADD_POST = 'ADD_POST'
+export const SIGN_IN = 'SIGN_IN'
+export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS'
+export const LOG_OUT = 'LOG_OUT'

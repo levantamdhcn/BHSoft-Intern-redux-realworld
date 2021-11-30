@@ -2,7 +2,7 @@ import { ThunkDispatch } from "redux-thunk"
 import { AnyAction } from "redux"
 import { RootState } from "../stores"
 import { getPost } from '../../axios/index'
-import { GET_POST } from "./type"
+import { GET_POST } from "./constant"
 
 export const getPostAction = () => async(dispatch: ThunkDispatch<RootState, unknown, AnyAction>): Promise<void> => {
     try {

@@ -1,14 +1,26 @@
 import { Form, Input, Button, Row, Col } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { signInAction } from '../../stores/index';
+import { useState } from 'react';
 
 const SignUp = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+
+  const [email,setEmail] = useState<string>('')
+  const [password,setPassword] = useState<string>('')
+  
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+  };
+
+  const dispatch = useDispatch()
+  const signIn = bindActionCreators( signInAction, dispatch) 
+
+  const handleSubmit = (email: string,password: string) => (e: React.FormEvent<any>) => {
+    signIn(email,password)
   };
 
   return (
@@ -32,16 +44,16 @@ const SignUp = () => {
             labelCol={{ span: 0 }}
             wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
-            onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            onFinish={handleSubmit(email,password)}
           >
             <Form.Item
               name="Email"
               rules={[{ required: true, message: 'Please input your email!' }]}
               className='form-input'
             >
-              <Input placeholder="Email"/>
+              <Input placeholder="Email" onChange={ (e) => (setEmail(e.target.value))}/>
             </Form.Item>
 
             <Form.Item
@@ -49,12 +61,12 @@ const SignUp = () => {
               rules={[{ required: true, message: 'Please input your password!' }]}
               className='form-input'
             >
-              <Input.Password placeholder="Password"/>
+              <Input.Password placeholder="Password" onChange={ (e) => (setPassword(e.target.value)) }/>
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
               <Button type="primary" htmlType="submit" className='ant-btn btn-submit'>
-                Submit
+                Sign In
               </Button>
             </Form.Item>
           </Form>

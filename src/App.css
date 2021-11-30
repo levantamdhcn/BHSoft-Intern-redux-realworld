@@ -28,10 +28,11 @@
 .ant-btn.btn-submit{
   color: #fff;
   background: var(--primary-color);
-  padding: 12px 24px;
+  padding: 10px 24px;
   border-radius: 4px;
   border: none;
   font-size: 24px;
+  height: 100%;
 }
 
 .ant-btn.btn-submit:hover {
