@@ -1,11 +1,2 @@
-import React from 'react'
+export * as postActions from "./actions/postActions"
 
-const index = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
-
-export default index

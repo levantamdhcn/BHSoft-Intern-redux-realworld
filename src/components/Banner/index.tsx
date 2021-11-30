@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Banner = () => {
+const AppBanner = () => {
     return (
         <div className='banner'>
             <h1 className='logo-font'>conduit</h1>
@@ -9,4 +9,4 @@ const Banner = () => {
     )
 }
 
-export default Banner
+export default AppBanner

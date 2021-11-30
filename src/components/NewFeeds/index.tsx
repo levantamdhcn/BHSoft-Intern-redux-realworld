@@ -1,11 +1,52 @@
-import React from 'react'
+import { Tabs } from 'antd';
+import React,{ useEffect } from 'react'
+import Post from './Post';
+import { postActions } from '../../stores/index'
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { Post as PostProps } from '../../stores/reducers/postReducers'
 
-const index = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+const { TabPane } = Tabs;
+
+
+const NewFeeds = () => {
+
+  const dispatch = useDispatch()
+  const { getPostAction } = bindActionCreators(postActions, dispatch)
+  useEffect(() => {
+    getPostAction()
+  }, [])
+
+  const posts = useSelector((state: any) => state.postReducers)
+  console.log(posts)
+  return (
+    <div>
+      <Tabs defaultActiveKey="1" className='newfeeds-holder'>
+            <TabPane tab="Your Feed" key="1">
+            Your Feed
+            </TabPane>
+            <TabPane tab="Global Feed" key="2">
+                <ul className='post-list'>
+                  {
+                    posts.map((item: PostProps,index: number) => {
+                      return (
+                        <li key={index}>
+                          <Post
+                            title={item.title}
+                            author={item.author}
+                            tagList={item.tagList}
+                            createdAt={item.createdAt}
+                            description={item.description}
+                          />
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+            </TabPane>
+        </Tabs>
+    </div>
+  )
 }
 
-export default index
+export default NewFeeds

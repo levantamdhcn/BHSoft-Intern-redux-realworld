@@ -1,13 +1,23 @@
-import React from 'react'
+import { createStore, combineReducers,applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import postReducers from './reducers/postReducers'
 
-const stores = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+
+const rootReducers = combineReducers({
+    postReducers,
+})
+
+const initialState = {
+
 }
 
-export default stores
+const middleWare = [thunk]
 
+export const stores = createStore(
+    rootReducers,
+    initialState,
+    composeWithDevTools(applyMiddleware(...middleWare))
+) 
 
+export type RootState = ReturnType<typeof stores.getState>

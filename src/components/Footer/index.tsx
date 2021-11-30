@@ -1,12 +1,16 @@
+import { GithubFilled } from '@ant-design/icons'
 import { Footer } from 'antd/lib/layout/layout'
 import React from 'react'
 
-const index = () => {
+const AppFooter = () => {
     return (
-        <div>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-        </div>
+        <Footer className='footer'>
+            <a href="https://github.com/gothinkster/react-redux-realworld-example-app">
+                <GithubFilled />
+                <p>Fork on GitHub</p>
+            </a>
+        </Footer>
     )
 }
 
-export default index
+export default AppFooter
