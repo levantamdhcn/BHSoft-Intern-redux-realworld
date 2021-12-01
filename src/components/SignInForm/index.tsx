@@ -1,9 +1,9 @@
 import { Form, Input, Button, Row, Col } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { signInAction } from '../../stores/index';
+import { authActions } from '../../stores/index';
 import { useState } from 'react';
 
 const SignUp = () => {
@@ -11,16 +11,17 @@ const SignUp = () => {
   const [email,setEmail] = useState<string>('')
   const [password,setPassword] = useState<string>('')
   
-
+  const isSuccess = useSelector((state: any) => state.authReducers.isSignUpSuccess)
+  
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
   const dispatch = useDispatch()
-  const signIn = bindActionCreators( signInAction, dispatch) 
+  const { signInAction } = bindActionCreators( authActions, dispatch) 
 
-  const handleSubmit = (email: string,password: string) => (e: React.FormEvent<any>) => {
-    signIn(email,password)
+  const onFinish = () => {
+    signInAction(email,password)
   };
 
   return (
@@ -37,6 +38,15 @@ const SignUp = () => {
               <NavLink to="/signup" className='form-navigate'>Need an account?</NavLink>
             </Col>
           </Row>
+          {
+            isSuccess ? '' : <Row gutter={[16, 16]}>
+                              <Col span={24} offset={7}>
+                                <ul className='error-msg-holder'>
+                                  <li className="error-msg">email or password is invalid</li>  
+                                </ul>
+                              </Col>
+                            </Row>
+          }
         </Col>
         <Col span={10} offset={7}>
           <Form
@@ -46,7 +56,7 @@ const SignUp = () => {
             initialValues={{ remember: true }}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
-            onFinish={handleSubmit(email,password)}
+            onFinish={onFinish}
           >
             <Form.Item
               name="Email"

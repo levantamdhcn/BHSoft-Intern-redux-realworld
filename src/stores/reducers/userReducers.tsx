@@ -1,4 +1,3 @@
-import { LOG_OUT } from '../actions/constant'
 
 export interface User {
     username?: string

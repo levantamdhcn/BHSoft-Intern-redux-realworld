@@ -1,14 +1,25 @@
 import { Form, Input, Button, Row, Col } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { authActions } from '../../stores';
 
 const SignUp = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  const [username, setUsername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+  const dispatch = useDispatch()
+
+  const { signUpAction } = bindActionCreators(authActions, dispatch)
+  const isSuccess = useSelector((state: any) => state.authReducers.isSignUpSuccess)
+
+  console.log(isSuccess)
+
+  const onFinish = () => {
+    signUpAction(email, username,password)
   };
 
   return (
@@ -25,6 +36,17 @@ const SignUp = () => {
               <NavLink to="/signin" className='form-navigate'>Have an account?</NavLink>
             </Col>
           </Row>
+          {
+            isSuccess ? '' : <Row gutter={[16, 16]}>
+                              <Col span={24} offset={7}>
+                                <ul className='error-msg-holder'>
+                                  <li className="error-msg">email has already been taken</li>
+                                  <li className="error-msg">username has already been taken</li>    
+                                </ul>
+                              </Col>
+                            </Row>
+          }
+          
         </Col>
         <Col span={10} offset={7}>
           <Form
@@ -33,7 +55,6 @@ const SignUp = () => {
             wrapperCol={{ span: 24 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Form.Item
@@ -41,7 +62,7 @@ const SignUp = () => {
               rules={[{ required: true, message: 'Please input your username!' }]}
               className='form-input'
             >
-              <Input placeholder="Username"/>
+              <Input placeholder="Username" onChange={ (e) => { setUsername(e.target.value) }}/>
             </Form.Item>
 
             <Form.Item
@@ -49,7 +70,7 @@ const SignUp = () => {
               rules={[{ required: true, message: 'Please input your email!' }]}
               className='form-input'
             >
-              <Input placeholder="Email"/>
+              <Input placeholder="Email" onChange={ (e) => { setEmail(e.target.value) }}/>
             </Form.Item>
 
             <Form.Item
@@ -57,7 +78,7 @@ const SignUp = () => {
               rules={[{ required: true, message: 'Please input your password!' }]}
               className='form-input'
             >
-              <Input.Password placeholder="Password"/>
+              <Input.Password placeholder="Password" onChange={ (e) => { setPassword(e.target.value) }}/>
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 9, span: 24 }}>

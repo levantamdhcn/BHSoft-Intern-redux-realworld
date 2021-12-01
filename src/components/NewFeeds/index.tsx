@@ -18,8 +18,7 @@ const NewFeeds = () => {
   }, [])
 
   const posts = useSelector((state: any) => state.postReducers)
-  const isLogged = useSelector((state: any) => state.authReducers.token.authenticated)
-
+  const isLogged = useSelector((state: any) => state.authReducers.currentUser.authenticated)
   return (
     <div>
       <Tabs defaultActiveKey="1" className='newfeeds-holder'>

@@ -5,7 +5,7 @@ import { Row,Col,Layout } from 'antd'
 
 const AppContent = () => {
     return (
-        <Layout.Content style={{ padding: '0 50px' }}>
+        <Layout.Content style={{ padding: '0 50px 100px 50px' }}>
             <Row gutter={[32, 16]}>
                 <Col span={18}>
                     <NewFeeds />

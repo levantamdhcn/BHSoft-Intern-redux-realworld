@@ -1,45 +1,74 @@
-import { SIGN_IN, LOG_OUT, SIGN_IN_SUCCESS } from '../actions/constant'
+import { SIGN_IN, SIGN_OUT, SIGN_IN_SUCCESS, SIGN_IN_FAILED, SIGN_UP_SUCCESS, SIGN_UP_FAILED } from '../actions/constant'
 
 export interface Auth {
-    token?: {
+    isSigninSuccess?: boolean
+    isSignUpSuccess?: boolean
+    currentUser?: {
         authenticated: boolean
-        user: string
+        username?: string
     }
 }
 
 export interface action {
     type?: string
-    payload: Auth
+    payload: {
+        authenticated: boolean
+        username?: string
+    }
 }
 
 const initialState: Auth = {
-    token: {
+    isSigninSuccess: true,
+    isSignUpSuccess: true,
+    currentUser: {
         authenticated: false,
-        user: ''
+        username: undefined
     }
 }
 
 const authReducers = (state: Auth = initialState, action: action) => {
     switch(action.type) {
-        case SIGN_IN:
-            return {
-                ...state,
-                token: action.payload
-            }
         case SIGN_IN_SUCCESS:
-            console.log('a')
             return {
                 ...state,
-                token: {
-                    ...state.token,
+                currentUser: {
+                    ...state.currentUser,
+                    authenticated: true,
+                    username: action.payload.username,
+                }
+            }
+        case SIGN_IN_FAILED:
+            return {
+                ...state,
+                isSignInSuccess: false,
+                currentUser: {
+                    ...state.currentUser,
+                    authenticate: false,
+                }
+            }
+        case SIGN_UP_SUCCESS:
+            return {
+                ...state,
+                isSignUpSuccess: true,
+                currentUser: {
+                    ...state.currentUser,
                     authenticate: true,
                 }
             }
-        case LOG_OUT: 
+        case SIGN_UP_FAILED:
+            return {
+                ...state,
+                isSignUpSuccess: false,
+                currentUser: {
+                    ...state.currentUser,
+                    authenticate: false,
+                }
+            }
+        case SIGN_OUT: 
             return {
                 ...state,
                 token: {
-                    ...state.token,
+                    ...state.currentUser,
                     authenticate: false,
                     user: ''
                 }

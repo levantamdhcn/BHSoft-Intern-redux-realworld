@@ -11,7 +11,7 @@ import SignUp from './components/SignUpForm';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const isLogged = useSelector((state: any) => state.authReducers.token.authenticated)
+  const isLogged = useSelector((state: any) => state.authReducers.currentUser.authenticated)
 
   return (
     <Router>
@@ -22,10 +22,10 @@ function App() {
               { !isLogged ? <SignIn /> : <Redirect to='/'/>}
             </Route>
             <Route path='/signup'>
-              <SignUp />
+            { !isLogged ? <SignUp /> : <Redirect to='/'/>}
             </Route>
             <Route path='/'>
-              <AppBanner />
+              { isLogged ? '' : <AppBanner />}
               <AppContent />
             </Route>
           </Switch>

@@ -281,6 +281,17 @@
 .form-input #basic_password {
   padding: 8px 13px !important;
 }
+
+.error-msg-holder{
+  padding-left: 20px;
+  text-align: left;
+}
+
+.error-msg {
+  color: #b85c5c!important;
+  font-weight: 700;
+  font-size: 16px;
+}
 /* FOOTER */
 .footer{
   text-align: center;
