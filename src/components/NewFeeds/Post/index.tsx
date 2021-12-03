@@ -1,9 +1,9 @@
 import { Button, Card } from 'antd'
 import { HeartFilled } from '@ant-design/icons';
 import React from 'react'
-import { Post as PostProps } from '../../../stores/reducers/postReducers'
+import { Post as PostType } from '../../../stores/type'
 
-const Post = (props: PostProps) => {
+const Post = (props: PostType) => {
 
     const { title, author, tagList, createdAt,description } = props
     return (

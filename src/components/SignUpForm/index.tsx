@@ -1,7 +1,7 @@
 import { Form, Input, Button, Row, Col } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useHistory } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { authActions } from '../../stores';
@@ -15,11 +15,17 @@ const SignUp = () => {
 
   const { signUpAction } = bindActionCreators(authActions, dispatch)
   const isSuccess = useSelector((state: any) => state.authReducers.isSignUpSuccess)
+  const errorMsg = useSelector((state: any) => state.authReducers.signUpErrorMsg)
 
-  console.log(isSuccess)
+  console.log(errorMsg)
+
+  const history = useHistory()
 
   const onFinish = () => {
     signUpAction(email, username,password)
+    if (isSuccess) {
+      history.push("/")
+    }
   };
 
   return (
@@ -36,17 +42,15 @@ const SignUp = () => {
               <NavLink to="/signin" className='form-navigate'>Have an account?</NavLink>
             </Col>
           </Row>
-          {
-            isSuccess ? '' : <Row gutter={[16, 16]}>
-                              <Col span={24} offset={7}>
-                                <ul className='error-msg-holder'>
-                                  <li className="error-msg">email has already been taken</li>
-                                  <li className="error-msg">username has already been taken</li>    
-                                </ul>
-                              </Col>
-                            </Row>
-          }
-          
+          <Row gutter={[16, 16]}>
+            <Col span={24} offset={7}>
+              <ul className='error-msg-holder'>
+                {
+                  typeof errorMsg ? errorMsg.map((item:string) => (<li className="error-msg">{item}</li>   )) : ''
+                }
+              </ul>
+            </Col>
+          </Row>
         </Col>
         <Col span={10} offset={7}>
           <Form

@@ -1,31 +1,11 @@
 import { GET_POST,ADD_POST } from '../actions/constant'
-
-export interface Post {
-    title?: string
-    description?: string
-    body?: string
-    createdAt?: string
-    tagList?: Array<string>[]
-    author?: {
-        username?: string
-        image?: string
-    } 
-}
-
-export interface Posts extends Array<Post>{}
-
-export interface action {
-    type?: string
-    payload: [
-
-    ]
-}
+import { Posts, action } from '../type'
 
 const initialState: Posts = [
 
 ]
 
-const postReducers = (state: Posts = initialState, action: action) => {
+const postReducers = (state = initialState, action: action) => {
     switch(action.type) {
         case GET_POST: 
             let newState = state.slice(0)

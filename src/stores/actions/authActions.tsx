@@ -1,26 +1,19 @@
-import { Action, AnyAction, Dispatch } from "redux"
-import { ThunkDispatch } from "redux-thunk"
-import { RootState } from "../stores"
-import { GET_POST, SIGN_IN_FAILED, SIGN_IN_SUCCESS, SIGN_OUT, SIGN_UP_FAILED, SIGN_UP_SUCCESS } from "./constant"
-import { User } from '../index'
-
-interface SignInState {
-    email: string
-    password: string
-}
+import { Action, Dispatch } from "redux"
+import { SIGN_IN_FAILED, SIGN_IN_SUCCESS, SIGN_OUT, SIGN_UP_FAILED } from "./constant"
+import { User,SignInState } from "../type"
 
 export const signUpAction = (email: string, username: string, password: string) => (dispatch: Dispatch<Action>) => {
     let accounts = JSON.parse(localStorage.getItem('accounts') || '[]') || []
-    accounts.push({
-        email,
-        username,
-        password
-    })
     let dupplicateAccounts = accounts.filter((item: User) => item.email === email || item.username === username)
     if (dupplicateAccounts.length === 0) {
+        accounts.push({
+            email,
+            username,
+            password
+        })
         localStorage.setItem('accounts', JSON.stringify(accounts))
         dispatch({
-            type: SIGN_UP_SUCCESS,
+            type: SIGN_IN_SUCCESS,
             payload: {
                 authenticated: true,
                 username: username
@@ -31,8 +24,9 @@ export const signUpAction = (email: string, username: string, password: string) 
         dispatch({
             type: SIGN_UP_FAILED,
             payload: {
-                authenticated: true,
-                username: username
+                authenticated: false,
+                username: username,
+                errorMsg: ['email has already been taken', 'username has already been taken']
             }
         })
     }
@@ -42,13 +36,13 @@ export const signUpAction = (email: string, username: string, password: string) 
 export const signInAction = (email: string, password: string) => (dispatch: Dispatch<Action>) => {
     let accounts = JSON.parse(localStorage.getItem('accounts') || '{}') || []
     const currentUser = accounts.filter((item: User) => item.email === email && item.password === password) 
-    console.log(currentUser)
+    console.log(currentUser[0])
     if (currentUser.length > 0) {
         dispatch({
             type: SIGN_IN_SUCCESS,
             payload: {
                 authenticated: true,
-                username: currentUser.username
+                username: currentUser[0].username,
             }
         })
     }
@@ -57,7 +51,8 @@ export const signInAction = (email: string, password: string) => (dispatch: Disp
             type: SIGN_IN_FAILED,
             payload:  {
                 authenticated: false,
-                username: undefined
+                username: undefined,
+                errorMsg: ['email or password is invalid']
             }
         })
     }

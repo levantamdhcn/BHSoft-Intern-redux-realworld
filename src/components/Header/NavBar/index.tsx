@@ -5,7 +5,10 @@ import { useSelector } from 'react-redux'
  
 const NavBar = () => {
 
-    const isSignedIn = useSelector((state: any) => state.authReducers.currentUser.authenticated)
+    const isSignedIn = useSelector((state: any) => state.authReducers.isSigninSuccess)
+    const username = useSelector((state:any) => state.authReducers.currentUser.username)
+
+    console.log(username)
 
     return (
             <div>
@@ -15,19 +18,19 @@ const NavBar = () => {
                         <NavLink to='/'>Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/signup'>
+                        <NavLink to='/editor'>
                             <FormOutlined />
                             New Post
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/signup'>
+                        <NavLink to='/setting'>
                             <SettingOutlined />
                             Setting
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/signup'>Name</NavLink>
+                        <NavLink to='/profile'>{ username }</NavLink>
                     </li>
                 </ul>
                 : <ul className='navbar'>

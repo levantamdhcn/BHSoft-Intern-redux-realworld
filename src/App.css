@@ -14,6 +14,17 @@
   border: 1px solid transparent;
 }
 
+.ant-btn.btn-logout{
+  color: #b85c5c;
+  border-color: #b85c5c;
+}
+
+.ant-btn.btn-logout:hover{
+  color: #fff;
+  background-color: #b85c5c;
+  border-color: #b85c5c;
+}
+
 .ant-btn.btn-primary{
   color: var(--primary-color) !important;
   padding: 4px 8px;
@@ -40,6 +51,7 @@
   background-color: #449d44;
   border-color: #419641;
 }
+
 /* Main */
 
 .ant-layout{
@@ -62,9 +74,14 @@
   margin-bottom: 0 !important;
 }
 
-.navbar li {
-  font-size: 16px;
-  color: rgba(0,0,0,0.3)
+.navbar li a{
+  font-size: 14.8px;
+  color: rgba(0,0,0,0.3);
+  font-weight: 400;
+}
+
+.navbar li a svg{
+  margin-right: 5px;
 }
 
 .navbar li:first-child{
@@ -285,12 +302,21 @@
 .error-msg-holder{
   padding-left: 20px;
   text-align: left;
+  list-style-type: none;
 }
 
 .error-msg {
   color: #b85c5c!important;
   font-weight: 700;
   font-size: 16px;
+}
+
+.form-input-large{
+  padding: 12px 24px !important;
+}
+
+.form-text-large{
+  font-size: 20px !important;
 }
 /* FOOTER */
 .footer{

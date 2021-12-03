@@ -1,17 +1,20 @@
 import { Form, Input, Button, Row, Col } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { authActions } from '../../stores/index';
 import { useState } from 'react';
 
-const SignUp = () => {
+const SignIn = () => {
 
   const [email,setEmail] = useState<string>('')
   const [password,setPassword] = useState<string>('')
   
-  const isSuccess = useSelector((state: any) => state.authReducers.isSignUpSuccess)
+  const isSuccess = useSelector((state: any) => state.authReducers.isSigninSuccess)
+  const errorMsg = useSelector((state: any) => state.authReducers.signInErrorMsg)
+
+  const history = useHistory()
   
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -22,6 +25,9 @@ const SignUp = () => {
 
   const onFinish = () => {
     signInAction(email,password)
+    if(isSuccess) {
+      history.push("/")
+    }
   };
 
   return (
@@ -38,15 +44,16 @@ const SignUp = () => {
               <NavLink to="/signup" className='form-navigate'>Need an account?</NavLink>
             </Col>
           </Row>
-          {
-            isSuccess ? '' : <Row gutter={[16, 16]}>
-                              <Col span={24} offset={7}>
-                                <ul className='error-msg-holder'>
-                                  <li className="error-msg">email or password is invalid</li>  
-                                </ul>
-                              </Col>
-                            </Row>
-          }
+          <Row gutter={[16, 16]}>
+            <Col span={24} offset={7}>
+              <ul className='error-msg-holder'>
+                {
+                  errorMsg ? errorMsg.map((item: string) => (<li className="error-msg">{ item }</li>  )) : ''
+                }
+                
+              </ul>
+            </Col>
+          </Row>
         </Col>
         <Col span={10} offset={7}>
           <Form
@@ -85,4 +92,4 @@ const SignUp = () => {
     </Content>
   );
 }
-export default SignUp
+export default SignIn

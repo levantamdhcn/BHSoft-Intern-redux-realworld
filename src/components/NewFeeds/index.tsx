@@ -4,7 +4,7 @@ import Post from './Post';
 import { postActions } from '../../stores/index'
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { Post as PostProps } from '../../stores/reducers/postReducers'
+import { Post as PostType } from '../../stores/type'
 
 const { TabPane } = Tabs;
 
@@ -31,7 +31,7 @@ const NewFeeds = () => {
             <TabPane tab="Global Feed" key="2">
                 <ul className='post-list'>
                   {
-                    posts.map((item: PostProps,index: number) => {
+                    posts.map((item: PostType,index: number) => {
                       return (
                         <li key={index}>
                           <Post
