@@ -15,7 +15,7 @@ const NewFeeds = () => {
   const { getPostAction } = bindActionCreators(postActions, dispatch)
   useEffect(() => {
     getPostAction()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const posts = useSelector((state: any) => state.postReducers)
   const isLogged = useSelector((state: any) => state.authReducers.currentUser.authenticated)
