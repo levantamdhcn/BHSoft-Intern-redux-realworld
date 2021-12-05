@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { getUserInforById } from "../../../localStorage";
 import { Article } from "../../../stores/type";
 
@@ -18,6 +19,14 @@ export const ArticleBanner = ({ id }: ArticleBannerProps) => {
   );
 
   const userCreateInfo = getUserInforById(articleInfo[0].userId);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleUpdate = () => {
+    history.push("/editor");
+  };
+  const handleDelete = () => {};
 
   return (
     <div>
@@ -39,6 +48,7 @@ export const ArticleBanner = ({ id }: ArticleBannerProps) => {
                 ghost
                 size="middle"
                 className="ant-btn btn-outline-secondary"
+                onClick={handleUpdate}
               >
                 Edit Article
               </Button>

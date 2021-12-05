@@ -22,6 +22,7 @@ export const ArticlesToggle = (props: Props) => {
     username: userInfor[0].username,
     image: userInfor[0].image,
   };
+  console.log(myArticles);
   return (
     <Tabs defaultActiveKey="1" className="newfeeds-holder">
       <TabPane tab="My Articles" key="1">

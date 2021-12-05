@@ -2,9 +2,15 @@ import { Button, Card } from "antd";
 import { HeartFilled } from "@ant-design/icons";
 import React from "react";
 import { Post as PostType } from "../../../stores/type";
+import { useDispatch } from "react-redux";
+import { goArticle } from "../../../stores/actions/articleActions";
 
 const Post = (props: PostType) => {
   const { title, author, tag, createdAt, description, id } = props;
+  const dispatch = useDispatch();
+  const handleOnClick = () => {
+    dispatch(goArticle(id));
+  };
   return (
     <div>
       <Card
@@ -33,7 +39,11 @@ const Post = (props: PostType) => {
             </Button>
           </div>
         </div>
-        <a href={`/article/${id}`} className="post-preview">
+        <a
+          href={`/article/${id}`}
+          className="post-preview"
+          onClick={() => handleOnClick()}
+        >
           <h1>{title}</h1>
           <p>{description}</p>
           <div className="post-footer">

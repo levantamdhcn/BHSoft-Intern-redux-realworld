@@ -9,3 +9,4 @@ export const SIGN_OUT = "SIGN_OUT";
 export const ADD_ARTICLE = "ADD_ARTICLE";
 export const DEL_ARTICLE = "DEL_ARTICLE";
 export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
+export const GO_ARTICLE = "GO_ARTICLE";

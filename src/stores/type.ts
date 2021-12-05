@@ -32,10 +32,7 @@ export interface action {
 
 export interface ArticleAction {
   type?: string;
-  payload: {
-    currentArticle: string;
-    article: Article;
-  };
+  payload: any;
 }
 
 export interface Post {
@@ -48,7 +45,7 @@ export interface Post {
     username?: string;
     image?: string;
   };
-  id?: string;
+  id: string;
 }
 
 export interface Posts extends Array<Post> {}
