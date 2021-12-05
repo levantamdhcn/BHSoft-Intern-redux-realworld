@@ -1,53 +1,59 @@
-import { Form, Input, Button, Row, Col } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
-import { useState } from 'react';
-import { NavLink,useHistory } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { authActions } from '../../stores';
+import { Form, Input, Button, Row, Col } from "antd";
+import { Content } from "antd/lib/layout/layout";
+import { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { authActions } from "../../stores";
 
 const SignUp = () => {
-  const [username, setUsername] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { signUpAction } = bindActionCreators(authActions, dispatch)
-  const isSuccess = useSelector((state: any) => state.authReducers.isSignUpSuccess)
-  const errorMsg = useSelector((state: any) => state.authReducers.signUpErrorMsg)
+  const { signUpAction } = bindActionCreators(authActions, dispatch);
+  const isSuccess = useSelector(
+    (state: any) => state.authReducers.isSignUpSuccess
+  );
+  const errorMsg = useSelector(
+    (state: any) => state.authReducers.signUpErrorMsg
+  );
 
-  console.log(errorMsg)
-
-  const history = useHistory()
+  const history = useHistory();
 
   const onFinish = () => {
-    signUpAction(email, username,password)
+    signUpAction(email, username, password);
     if (isSuccess) {
-      history.push("/")
+      history.push("/");
     }
   };
 
   return (
-    <Content style={{ padding: '0 50px' }}>
+    <Content style={{ padding: "0 50px" }}>
       <Row gutter={[16, 16]}>
-        <Col span={10} offset={4} style={ { textAlign: 'center' } }>
+        <Col span={10} offset={4} style={{ textAlign: "center" }}>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <h1 className='form-title'>Sign Up</h1>
+              <h1 className="form-title">Sign Up</h1>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <NavLink to="/signin" className='form-navigate'>Have an account?</NavLink>
+              <NavLink to="/signin" className="form-navigate">
+                Have an account?
+              </NavLink>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <ul className='error-msg-holder'>
-                {
-                  typeof errorMsg ? errorMsg.map((item:string) => (<li className="error-msg">{item}</li>   )) : ''
-                }
+              <ul className="error-msg-holder">
+                {errorMsg
+                  ? errorMsg.map((item: string) => (
+                      <li className="error-msg">{item}</li>
+                    ))
+                  : ""}
               </ul>
             </Col>
           </Row>
@@ -63,30 +69,53 @@ const SignUp = () => {
           >
             <Form.Item
               name="username"
-              rules={[{ required: true, message: 'Please input your username!' }]}
-              className='form-input'
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
+              className="form-input"
             >
-              <Input placeholder="Username" onChange={ (e) => { setUsername(e.target.value) }}/>
+              <Input
+                placeholder="Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
             </Form.Item>
 
             <Form.Item
               name="email"
-              rules={[{ required: true, message: 'Please input your email!' }]}
-              className='form-input'
+              rules={[{ required: true, message: "Please input your email!" }]}
+              className="form-input"
             >
-              <Input placeholder="Email" onChange={ (e) => { setEmail(e.target.value) }}/>
+              <Input
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </Form.Item>
 
             <Form.Item
               name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
-              className='form-input'
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+              className="form-input"
             >
-              <Input.Password placeholder="Password" onChange={ (e) => { setPassword(e.target.value) }}/>
+              <Input.Password
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 9, span: 24 }}>
-              <Button type="primary" htmlType="submit" className='ant-btn btn-submit'> 
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="ant-btn btn-submit"
+              >
                 Sign Up
               </Button>
             </Form.Item>
@@ -95,5 +124,5 @@ const SignUp = () => {
       </Row>
     </Content>
   );
-}
-export default SignUp
+};
+export default SignUp;
