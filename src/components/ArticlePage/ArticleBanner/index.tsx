@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getUserInforById } from "../../../localStorage";
 import { Article } from "../../../stores/type";
@@ -20,13 +20,13 @@ export const ArticleBanner = ({ id }: ArticleBannerProps) => {
 
   const userCreateInfo = getUserInforById(articleInfo[0].userId);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
 
   const handleUpdate = () => {
     history.push("/editor");
   };
-  const handleDelete = () => {};
+  // const handleDelete = () => {};
 
   return (
     <div>
