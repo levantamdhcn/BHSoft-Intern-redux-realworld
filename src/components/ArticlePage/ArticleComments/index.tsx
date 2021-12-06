@@ -21,13 +21,14 @@ export const ArticleComments = ({ comments }: ArticleCommentsProps) => {
     <div>
       <ul style={{ listStyle: "none", paddingLeft: "0" }}>
         {comments?.length > 0
-          ? comments?.map((comment: CommentState) => (
+          ? comments?.slice(0, 3).map((comment: CommentState) => (
               <li key={comment.id}>
                 <Comment
                   body={comment.body}
                   image={comment.author.image}
                   username={comment.author.username}
                   createdAt={comment.createdAt}
+                  id={comment.id}
                 />
               </li>
             ))

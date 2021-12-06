@@ -49,6 +49,7 @@ export interface Post {
   favoritesCount: number;
   favorited: boolean;
   slug?: string;
+  comments: Comments;
 }
 
 export interface Posts extends Array<Post> {}

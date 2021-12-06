@@ -10,13 +10,19 @@ interface PostPageProps {
 
 export const PostPage = ({ slug }: PostPageProps) => {
   const postMeta = useSelector((state: any) => state.postReducers.posts);
+  const id = useSelector((state: any) => state.postReducers.currentPostSlug);
   const { body, tagList, comments } = postMeta.filter(
     (item: Post) => item.slug === slug
   )[0];
   return (
     <div>
       <PostBanner slug={slug} postMeta={postMeta} />
-      <ArticleContent body={body} tagList={tagList} comments={comments} />
+      <ArticleContent
+        id={id}
+        body={body}
+        tagList={tagList}
+        comments={comments}
+      />
     </div>
   );
 };

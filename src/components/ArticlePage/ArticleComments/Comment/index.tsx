@@ -1,15 +1,28 @@
 import DeleteFilled from "@ant-design/icons/lib/icons/DeleteFilled";
 import { Col, Row } from "antd";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteComment } from "../../../../stores/actions/articleActions";
 
 interface CommentProps {
   body: string;
   image: string;
   username: string;
   createdAt: string;
+  id: string;
 }
 
-export const Comment = ({ body, image, username, createdAt }: CommentProps) => {
+export const Comment = ({
+  body,
+  image,
+  username,
+  createdAt,
+  id,
+}: CommentProps) => {
+  const dispatch = useDispatch();
+  const handleDelComment = () => {
+    dispatch(deleteComment(id));
+  };
   return (
     <Row gutter={[16, 16]}>
       <Col span={10} offset={7}>
@@ -32,7 +45,7 @@ export const Comment = ({ body, image, username, createdAt }: CommentProps) => {
                 </a>
                 <span className="date-posted">{createdAt.split("T")[0]}</span>
                 <span className="comment-action">
-                  <DeleteFilled />
+                  <DeleteFilled onClick={handleDelComment} />
                 </span>
               </div>
             </Col>

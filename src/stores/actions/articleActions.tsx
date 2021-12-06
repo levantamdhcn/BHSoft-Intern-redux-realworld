@@ -4,6 +4,7 @@ import {
   ADD_ARTICLE,
   ADD_COMMENT,
   DEL_ARTICLE,
+  DEL_COMMENT,
   GO_ARTICLE,
   UPDATE_ARTICLE,
 } from "./constant";
@@ -53,3 +54,9 @@ export const addComment =
       },
     });
   };
+export const deleteComment = (id: string) => (dispatch: Dispatch<action>) => {
+  dispatch({
+    type: DEL_COMMENT,
+    payload: id,
+  });
+};

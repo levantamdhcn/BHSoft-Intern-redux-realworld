@@ -12,3 +12,4 @@ export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
 export const GO_ARTICLE = "GO_ARTICLE";
 export const TOGGLE_FAVOURITE = "TOGGLE_FAVOURITE";
 export const ADD_COMMENT = "ADD_COMMENT";
+export const DEL_COMMENT = "ADD_COMMENT";

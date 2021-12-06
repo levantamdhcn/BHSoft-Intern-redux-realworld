@@ -7,9 +7,10 @@ interface Props {
   body?: string;
   tagList?: [];
   comments: [];
+  id: string;
 }
 
-export const ArticleContent = ({ body, tagList, comments }: Props) => {
+export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
   return (
     <div className="container">
       <Row gutter={[16, 16]}>
@@ -32,7 +33,7 @@ export const ArticleContent = ({ body, tagList, comments }: Props) => {
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24}>
-              <CommentForm />
+              <CommentForm id={id} />
               <ArticleComments comments={comments} />
             </Col>
           </Row>

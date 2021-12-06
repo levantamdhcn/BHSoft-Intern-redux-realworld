@@ -44,6 +44,7 @@ const NewFeeds = () => {
                     favoritesCount={item.favoritesCount}
                     favorited={item.favorited}
                     slug={item.slug}
+                    comments={[]}
                   />
                 </li>
               );

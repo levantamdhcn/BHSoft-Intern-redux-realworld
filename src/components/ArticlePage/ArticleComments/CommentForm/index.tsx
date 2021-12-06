@@ -6,15 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserInforById } from "../../../../localStorage";
 import { addComment } from "../../../../stores/actions/articleActions";
 
-export const CommentForm = () => {
+interface CommentFormProps {
+  id: string;
+}
+
+export const CommentForm = ({ id }: CommentFormProps) => {
   const [body, setBody] = useState<string>("");
   const dispatch = useDispatch();
 
   const currentUserId = useSelector(
     (state: any) => state.authReducers.currentUser.userId
-  );
-  const currentArticleId = useSelector(
-    (state: any) => state.articleReducers.currentArticle
   );
 
   var userInfor = getUserInforById(currentUserId);
@@ -29,7 +30,7 @@ export const CommentForm = () => {
   };
 
   const handleAddComment = () => {
-    dispatch(addComment(currentArticleId, data));
+    dispatch(addComment(id, data));
   };
   return (
     <Row gutter={[16, 16]}>

@@ -39,6 +39,7 @@ export const ArticlesToggle = (props: Props) => {
                       id={item.articleId}
                       favoritesCount={0}
                       favorited={true}
+                      comments={[]}
                     />
                   </li>
                 );
