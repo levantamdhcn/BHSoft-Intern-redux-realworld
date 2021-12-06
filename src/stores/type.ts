@@ -27,12 +27,12 @@ export interface Auth {
 
 export interface action {
   type?: string;
-  payload: any;
+  payload?: any;
 }
 
 export interface ArticleAction {
   type?: string;
-  payload: any;
+  payload?: any;
 }
 
 export interface Post {
@@ -40,31 +40,47 @@ export interface Post {
   description?: string;
   body?: string;
   createdAt?: string;
-  tag?: string;
-  author?: {
+  tagList?: [];
+  author: {
     username?: string;
     image?: string;
   };
   id: string;
+  favoritesCount: number;
+  favorited: boolean;
+  slug?: string;
 }
 
 export interface Posts extends Array<Post> {}
 
-export interface AppState {
-  authReducers?: any;
-  postReducers?: Posts;
-  articleReducers?: ArticleState;
+export interface PostState {
+  currentPostSlug: string;
+  posts: Posts;
 }
+
+export interface CommentState {
+  author: {
+    image: string;
+    username: string;
+  };
+  body: string;
+  createdAt: string;
+  id: string;
+  updatedAt?: string;
+}
+
+export interface Comments extends Array<CommentState> {}
 
 export interface Article {
   title: string;
   desc: string;
   content: string;
-  tag: string;
+  tagList?: [];
   like?: number;
   articleId: string;
   userId: string;
   createdAt: string;
+  comments: Comments;
 }
 
 export interface Articles extends Array<Article> {}
@@ -72,4 +88,10 @@ export interface Articles extends Array<Article> {}
 export interface ArticleState {
   currentArticle: string;
   articles: Articles;
+}
+
+export interface AppState {
+  authReducers?: any;
+  postReducers?: PostState;
+  articleReducers?: ArticleState;
 }

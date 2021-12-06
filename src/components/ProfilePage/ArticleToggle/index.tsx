@@ -22,25 +22,28 @@ export const ArticlesToggle = (props: Props) => {
     username: userInfor[0].username,
     image: userInfor[0].image,
   };
-  console.log(myArticles);
   return (
     <Tabs defaultActiveKey="1" className="newfeeds-holder">
       <TabPane tab="My Articles" key="1">
         <ul className="post-list">
-          {myArticles.map((item: Article, index: number) => {
-            return (
-              <li key={index}>
-                <Post
-                  title={item.title}
-                  author={author}
-                  tag={item.tag}
-                  createdAt={item.createdAt}
-                  description={item.desc}
-                  id={item.articleId}
-                />
-              </li>
-            );
-          })}
+          {myArticles.length > 0
+            ? myArticles.map((item: Article, index: number) => {
+                return (
+                  <li key={index}>
+                    <Post
+                      title={item.title}
+                      author={author}
+                      tagList={item.tagList}
+                      createdAt={item.createdAt}
+                      description={item.desc}
+                      id={item.articleId}
+                      favoritesCount={0}
+                      favorited={true}
+                    />
+                  </li>
+                );
+              })
+            : ""}
         </ul>
       </TabPane>
       <TabPane tab="Favourited Articles" key="2">

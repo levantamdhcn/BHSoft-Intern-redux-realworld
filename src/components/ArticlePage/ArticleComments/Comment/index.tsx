@@ -2,9 +2,14 @@ import DeleteFilled from "@ant-design/icons/lib/icons/DeleteFilled";
 import { Col, Row } from "antd";
 import React from "react";
 
-interface Props {}
+interface CommentProps {
+  body: string;
+  image: string;
+  username: string;
+  createdAt: string;
+}
 
-export const Comment = (props: Props) => {
+export const Comment = ({ body, image, username, createdAt }: CommentProps) => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={10} offset={7}>
@@ -12,7 +17,7 @@ export const Comment = (props: Props) => {
           <Row>
             <Col span={24}>
               <div className="card-block">
-                <p className="card-text">Comment</p>
+                <p className="card-text">{body}</p>
               </div>
             </Col>
           </Row>
@@ -20,15 +25,12 @@ export const Comment = (props: Props) => {
             <Col span={24}>
               <div className="card-footer">
                 <a href="lvtann.com" className="comment-author">
-                  <img
-                    src="https://api.realworld.io/images/smiley-cyrus.jpeg"
-                    alt="author-avt"
-                  />
+                  <img src={image} alt="author-avt" />
                 </a>
                 <a href="lvtann.com" className="comment-author">
-                  lvtann
+                  {username}
                 </a>
-                <span className="date-posted">Sun Dec 05 2021</span>
+                <span className="date-posted">{createdAt.split("T")[0]}</span>
                 <span className="comment-action">
                   <DeleteFilled />
                 </span>

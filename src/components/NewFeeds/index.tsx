@@ -15,7 +15,7 @@ const NewFeeds = () => {
     getPostAction();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const posts = useSelector((state: any) => state.postReducers);
+  const posts = useSelector((state: any) => state.postReducers.posts);
   const isLogged = useSelector(
     (state: any) => state.authReducers.currentUser.authenticated
   );
@@ -37,10 +37,13 @@ const NewFeeds = () => {
                   <Post
                     title={item.title}
                     author={item.author}
-                    tag={item.tag}
+                    tagList={item.tagList}
                     createdAt={item.createdAt}
                     description={item.description}
                     id={""}
+                    favoritesCount={item.favoritesCount}
+                    favorited={item.favorited}
+                    slug={item.slug}
                   />
                 </li>
               );

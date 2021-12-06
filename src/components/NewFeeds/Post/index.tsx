@@ -4,12 +4,26 @@ import React from "react";
 import { Post as PostType } from "../../../stores/type";
 import { useDispatch } from "react-redux";
 import { goArticle } from "../../../stores/actions/articleActions";
+import { toggleFavourite } from "../../../stores/actions/postActions";
 
 const Post = (props: PostType) => {
-  const { title, author, tag, createdAt, description, id } = props;
+  const {
+    title,
+    author,
+    tagList,
+    createdAt,
+    description,
+    id,
+    favoritesCount,
+    favorited,
+    slug,
+  } = props;
   const dispatch = useDispatch();
   const handleOnClick = () => {
-    dispatch(goArticle(id));
+    dispatch(goArticle(id, slug));
+  };
+  const handleToggleFavourite = () => {
+    dispatch(toggleFavourite(slug));
   };
   return (
     <div>
@@ -33,14 +47,19 @@ const Post = (props: PostType) => {
             <span className="date">{createdAt}</span>
           </div>
           <div className="post-react">
-            <Button className="btn btn-primary">
+            <Button
+              className={
+                favorited ? "ant-btn btn-primary active" : "ant-btn btn-primary"
+              }
+              onClick={handleToggleFavourite}
+            >
               <HeartFilled />
-              53
+              {favoritesCount}
             </Button>
           </div>
         </div>
         <a
-          href={`/article/${id}`}
+          href={id ? `/article/${id}` : `/post/${slug}`}
           className="post-preview"
           onClick={() => handleOnClick()}
         >
@@ -49,7 +68,9 @@ const Post = (props: PostType) => {
           <div className="post-footer">
             <span>Read more...</span>
             <ul className="tag-list">
-              <li className="tag-item">{tag}</li>
+              {tagList?.map((tag) => (
+                <li className="tag-item">{tag}</li>
+              ))}
             </ul>
           </div>
         </a>

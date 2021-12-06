@@ -38,6 +38,12 @@
   border-radius: 4px;
 }
 
+.ant-btn.btn-primary.active {
+  background-color: var(--primary-color);
+  color: #fff !important;
+  border-color: var(--primary-color);
+}
+
 .ant-btn.btn-primary:hover {
   color: #fff !important;
   background-color: var(--primary-color);

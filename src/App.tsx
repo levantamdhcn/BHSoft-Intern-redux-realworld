@@ -18,6 +18,7 @@ import NewPost from "./components/NewPost";
 import Setting from "./components/Setting";
 import ProfilePage from "./components/ProfilePage";
 import { ArticlePage } from "./components/ArticlePage";
+import { PostPage } from "./components/PostPage";
 
 function App() {
   const isLogged = useSelector(
@@ -26,7 +27,9 @@ function App() {
   const articleId = useSelector(
     (state: any) => state.articleReducers.currentArticle
   );
-  console.log(articleId);
+  const postSlug = useSelector(
+    (state: any) => state.postReducers.currentPostSlug
+  );
 
   return (
     <Router>
@@ -39,14 +42,20 @@ function App() {
           <Route path="/signup">
             {!isLogged ? <SignUp /> : <Redirect to="/" />}
           </Route>
-          <Route path="/editor">
+          <Route exact path="/editor">
             {isLogged ? <NewPost /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/editor/:id">
+            {isLogged ? <NewPost id={articleId} /> : <Redirect to="/" />}
           </Route>
           <Route path="/setting">
             {isLogged ? <Setting /> : <Redirect to="/" />}
           </Route>
           <Route path="/article/:id">
             {isLogged ? <ArticlePage id={articleId} /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/post/:slug">
+            <PostPage slug={postSlug} />
           </Route>
           <Route path="/profile">
             {isLogged ? <ProfilePage /> : <Redirect to="/" />}

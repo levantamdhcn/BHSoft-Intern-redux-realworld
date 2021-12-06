@@ -1,18 +1,18 @@
 import { Button } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { getUserInforById } from "../../../localStorage";
-import { Article } from "../../../stores/type";
+import { deleteArticle } from "../../../stores/actions/articleActions";
+import { Article, Articles } from "../../../stores/type";
 
 interface ArticleBannerProps {
   id: string;
+  articlesMeta: Articles;
 }
 
-export const ArticleBanner = ({ id }: ArticleBannerProps) => {
-  const articlesMeta = useSelector(
-    (state: any) => state.articleReducers.articles
-  );
+export const ArticleBanner = ({ id, articlesMeta }: ArticleBannerProps) => {
+  const dispatch = useDispatch();
 
   const articleInfo = articlesMeta.filter(
     (item: Article) => item.articleId === id
@@ -24,9 +24,12 @@ export const ArticleBanner = ({ id }: ArticleBannerProps) => {
   const history = useHistory();
 
   const handleUpdate = () => {
-    history.push("/editor");
+    history.push(`/editor/${id}`);
   };
-  // const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(deleteArticle(articleInfo[0].articleId));
+    history.push("/");
+  };
 
   return (
     <div>
@@ -52,7 +55,11 @@ export const ArticleBanner = ({ id }: ArticleBannerProps) => {
               >
                 Edit Article
               </Button>
-              <Button ghost className="ant-btn btn-outline-danger">
+              <Button
+                ghost
+                className="ant-btn btn-outline-danger"
+                onClick={handleDelete}
+              >
                 Delete Article
               </Button>
             </span>

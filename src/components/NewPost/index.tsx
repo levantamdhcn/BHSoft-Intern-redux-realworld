@@ -1,34 +1,63 @@
 import { Form, Input, Button, Row, Col } from "antd";
 import { Article } from "../../stores/type";
-import { addArtilce } from "../../stores/actions/articleActions";
+import { addArtilce, updateArticle } from "../../stores/actions/articleActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import moment from "moment";
 /* eslint-enable no-template-curly-in-string */
 
-const NewPost = () => {
+interface NewPostProps {
+  id?: string;
+}
+
+const NewPost = ({ id }: NewPostProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userId = useSelector(
     (state: any) => state.authReducers.currentUser.userId
   );
-  const createdAt = moment().format("MMM Do YY");
-  const onFinish = (values: Article) => {
-    const newData = {
-      ...values,
-      userId: userId,
-      createdAt,
-      articleId: Math.random().toString(36).substr(2, 9),
-    };
-    dispatch(addArtilce(newData));
+  const articleInfor = useSelector((state: any) =>
+    state.articleReducers.articles.filter(
+      (item: Article) => item.articleId === id
+    )
+  );
 
-    setTimeout(() => {
-      history.push(`/article/${newData.articleId}`);
-    }, 2000);
+  if (id) {
+    var { title, desc, content, tag } = articleInfor[0];
+  } // when the id is availale that user is updating post, and only get the infor when updating
+
+  const onFinish = (values: Article) => {
+    if (!id) {
+      const createdAt = moment().format("MMM Do YY");
+      const newData = {
+        ...values,
+        userId: userId,
+        createdAt,
+        articleId: Math.random().toString(36).substr(2, 9),
+      };
+      dispatch(addArtilce(newData));
+
+      setTimeout(() => {
+        history.push(`/article/${newData.articleId}`);
+      }, 2000);
+    } else {
+      dispatch(updateArticle(values));
+      setTimeout(() => {
+        history.push(`/article/${articleInfor[0].articleId}`);
+      }, 1000);
+    }
   };
   return (
     <div>
-      <Form onFinish={onFinish}>
+      <Form
+        onFinish={onFinish}
+        initialValues={{
+          title: id ? title : "",
+          desc: id ? desc : "",
+          content: id ? content : "",
+          tag: id ? tag : "",
+        }}
+      >
         <Row gutter={[16, 16]}>
           <Col span={8} offset={7}>
             <Row gutter={[16, 16]}>

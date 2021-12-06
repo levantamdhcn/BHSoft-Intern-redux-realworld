@@ -10,3 +10,5 @@ export const ADD_ARTICLE = "ADD_ARTICLE";
 export const DEL_ARTICLE = "DEL_ARTICLE";
 export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
 export const GO_ARTICLE = "GO_ARTICLE";
+export const TOGGLE_FAVOURITE = "TOGGLE_FAVOURITE";
+export const ADD_COMMENT = "ADD_COMMENT";
