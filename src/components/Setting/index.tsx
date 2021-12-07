@@ -22,7 +22,7 @@ const Setting = () => {
       userId: userId,
       password,
     };
-    updateAccount(valuesToUpdate);
+    dispatch(updateAccount(valuesToUpdate));
     setTimeout(() => {
       history.push("/");
     }, 500);

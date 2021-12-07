@@ -19,6 +19,10 @@ export const updateAccount =
           password,
         }));
       localStorage.setItem("accounts", JSON.stringify(newAccont));
+      dispatch({
+        type: UPDATE_ACCOUNT,
+        payload: username,
+      });
     } else {
       const newAccont = accounts
         .filter((account: User) => account.userId === userId)
@@ -30,9 +34,9 @@ export const updateAccount =
           bio,
         }));
       localStorage.setItem("accounts", JSON.stringify(newAccont));
+      dispatch({
+        type: UPDATE_ACCOUNT,
+        payload: username,
+      });
     }
-    dispatch({
-      type: UPDATE_ACCOUNT,
-      payload: username,
-    });
   };
