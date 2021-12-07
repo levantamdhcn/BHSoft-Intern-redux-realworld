@@ -8,3 +8,6 @@ export const getArticleInforById = (id: string) => {
   let articles = JSON.parse(localStorage.getItem("articles") || "[]") || [];
   return articles.filter((article: Article) => article.articleId === id);
 };
+export const getAllAccounts = () => {
+  return JSON.parse(localStorage.getItem("accounts") || "[]") || [];
+};

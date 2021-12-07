@@ -9,6 +9,7 @@ export interface User {
   password: string;
   email: string;
   image: string;
+  bio: string;
 }
 
 export interface Users extends Array<Article> {}

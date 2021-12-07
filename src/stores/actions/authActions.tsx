@@ -16,11 +16,13 @@ export const signUpAction =
     );
     if (dupplicateAccounts.length === 0) {
       const userId = Math.random().toString(36).substr(2, 9);
+      const bio = "";
       accounts.push({
         userId,
         email,
         username,
         password,
+        bio,
         image: "https://api.realworld.io/images/smiley-cyrus.jpeg",
       });
       localStorage.setItem("accounts", JSON.stringify(accounts));

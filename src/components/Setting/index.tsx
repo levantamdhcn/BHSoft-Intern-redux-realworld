@@ -1,28 +1,57 @@
 import { Button, Col, Form, Input, Row } from "antd";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { getUserInforById } from "../../localStorage";
+import { updateAccount } from "../../stores/actions/accountsActions";
 import { signOutAction } from "../../stores/actions/authActions";
 
 const Setting = () => {
+  const [password, setPassword] = useState<string>("");
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const history = useHistory();
+  const handleLogOut = () => {
     dispatch(signOutAction);
   };
+  const userId = useSelector(
+    (state: any) => state.authReducers.currentUser.userId
+  );
+  const onFinish = (values: any) => {
+    console.log(values);
+    const valuesToUpdate = {
+      ...values,
+      userId: userId,
+      password,
+    };
+    updateAccount(valuesToUpdate);
+    setTimeout(() => {
+      history.push("/");
+    }, 500);
+  };
+  const { image, username, email, bio } = getUserInforById(userId)[0];
   return (
     <div style={{ marginBottom: "100px" }}>
-      <Form>
+      <Form
+        initialValues={{
+          image: image,
+          username: username,
+          email: email,
+          bio: bio,
+        }}
+        onFinish={onFinish}
+      >
         <Row gutter={[16, 16]}>
           <Col span={8} offset={7}>
             <Row>
               <Col span={24}>
-                <Form.Item>
+                <Form.Item name="image">
                   <Input size={"large"} placeholder="URL of profile picture" />
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item>
+                <Form.Item name="username">
                   <Input
                     className="form-input-large form-text-large"
                     placeholder="Username"
@@ -32,7 +61,7 @@ const Setting = () => {
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item>
+                <Form.Item name="bio">
                   <Input.TextArea
                     rows={6}
                     className="form-text-large"
@@ -43,7 +72,7 @@ const Setting = () => {
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item>
+                <Form.Item name="email">
                   <Input
                     className="form-input-large form-text-large"
                     placeholder="Email"
@@ -57,6 +86,8 @@ const Setting = () => {
                   <Input
                     className="form-input-large form-text-large"
                     placeholder="New Password"
+                    name="password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -64,7 +95,7 @@ const Setting = () => {
             <Row gutter={[16, 16]}>
               <Col span={24} style={{ textAlign: "right" }}>
                 <Form.Item>
-                  <Button className="btn ant-btn btn-submit">
+                  <Button className="btn ant-btn btn-submit" htmlType="submit">
                     Update Settings
                   </Button>
                 </Form.Item>
@@ -77,7 +108,7 @@ const Setting = () => {
             </Row>
             <Row gutter={[16, 16]}>
               <Col span={24} style={{ textAlign: "left" }}>
-                <Button className="ant-btn btn-logout" onClick={handleClick}>
+                <Button className="ant-btn btn-logout" onClick={handleLogOut}>
                   Or click here to logout.
                 </Button>
               </Col>

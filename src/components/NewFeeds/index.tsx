@@ -24,7 +24,7 @@ const NewFeeds = () => {
       <Tabs defaultActiveKey="1" className="newfeeds-holder">
         {isLogged ? (
           <TabPane tab="Your Feed" key="1">
-            Your Feed
+            No articles are here... yet.
           </TabPane>
         ) : (
           ""
