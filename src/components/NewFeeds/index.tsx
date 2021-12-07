@@ -1,19 +1,17 @@
 import { Tabs } from "antd";
 import React, { useEffect } from "react";
 import Post from "./Post";
-import { postActions } from "../../stores/index";
 import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Post as PostType } from "../../stores/type";
+import { getPostAction } from "../../stores/actions/postActions";
 
 const { TabPane } = Tabs;
 
 const NewFeeds = () => {
   const dispatch = useDispatch();
-  const { getPostAction } = bindActionCreators(postActions, dispatch);
   useEffect(() => {
-    getPostAction();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(getPostAction);
+  }, [dispatch]);
 
   const posts = useSelector((state: any) => state.postReducers.posts);
   const isLogged = useSelector(

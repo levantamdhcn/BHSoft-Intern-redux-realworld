@@ -6,7 +6,7 @@ import {
   GO_ARTICLE,
   UPDATE_ARTICLE,
 } from "../actions/constant";
-import { ArticleState, ArticleAction, Article, CommentState } from "../type";
+import { ArticleState, ArticleAction, Article } from "../type";
 
 const initialState: ArticleState = {
   currentArticle: "",
@@ -57,7 +57,7 @@ const articleReducers = (
         if (article.articleId === action.payload.id) {
           return {
             ...article,
-            comments: article.comments.concat(action.payload.data),
+            comments: [action.payload.data].concat(article.comments),
           };
         }
         return article;
@@ -67,22 +67,20 @@ const articleReducers = (
         articles: articlesAfterAddCmt,
       };
     case DEL_COMMENT:
-      console.log("a");
       const articleAfterDelCmt = state.articles.map((item: Article) => {
-        if (item.articleId === action.payload.id) {
-          const newComments = item.comments.filter(
-            (comment: CommentState) => comment.id === action.payload
-          );
+        if (item.articleId === state.currentArticle) {
           return {
             ...item,
-            comments: newComments,
+            comments: item.comments.filter(
+              (comment) => comment.id !== action.payload
+            ),
           };
         }
         return item;
       });
       return {
         ...state,
-        posts: articleAfterDelCmt,
+        articles: articleAfterDelCmt,
       };
     default:
       return state;

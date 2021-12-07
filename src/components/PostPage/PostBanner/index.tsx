@@ -8,7 +8,6 @@ interface PostBannerProps {
 
 export const PostBanner = ({ slug, postMeta }: PostBannerProps) => {
   const postInfo = postMeta.filter((item: Post) => item.slug === slug);
-  console.log(postInfo);
 
   return (
     <div>

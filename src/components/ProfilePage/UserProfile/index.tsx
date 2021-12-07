@@ -1,10 +1,15 @@
 import { Button, Col, Row } from "antd";
 import React from "react";
 import { SettingOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router";
 
 interface Props {}
 
 export const UserProfile = (props: Props) => {
+  const history = useHistory();
+  const handleEditProfile = () => {
+    history.push("/setting");
+  };
   return (
     <div className="user-profile">
       <Row gutter={[8, 8]} className="container small-container">
@@ -25,7 +30,7 @@ export const UserProfile = (props: Props) => {
         <Col span={24}>
           <Row gutter={[12, 12]} style={{ textAlign: "right" }}>
             <Col span={24}>
-              <Button className="ant-btn">
+              <Button className="ant-btn" onClick={handleEditProfile}>
                 <SettingOutlined />
                 Edit Profile Settings
               </Button>

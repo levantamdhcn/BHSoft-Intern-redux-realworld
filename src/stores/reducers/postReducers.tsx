@@ -58,11 +58,11 @@ const postReducers = (state = initialState, action: action) => {
       };
     case DEL_COMMENT:
       const postAfterDelCmt = state.posts.map((item: Post) => {
-        if (item.slug === action.payload.id) {
+        if (item.slug === state.currentPostSlug) {
           return {
             ...item,
             comments: item.comments.filter(
-              (comment) => comment.id === action.payload
+              (comment) => comment.id !== action.payload
             ),
           };
         }
