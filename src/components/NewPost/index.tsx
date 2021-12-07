@@ -32,6 +32,8 @@ const NewPost = ({ id }: NewPostProps) => {
       const newData = {
         ...values,
         userId: userId,
+        favourtied: false,
+        favoritesCount: 0,
         createdAt,
         articleId: Math.random().toString(36).substr(2, 9),
       };
@@ -114,7 +116,7 @@ const NewPost = ({ id }: NewPostProps) => {
             </Row>
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <Form.Item name="tag">
+                <Form.Item name="tagList">
                   <Input placeholder="Enter tags" />
                 </Form.Item>
               </Col>

@@ -4,6 +4,7 @@ import {
   DEL_ARTICLE,
   DEL_COMMENT,
   GO_ARTICLE,
+  TOGGLE_FAVOURITE,
   UPDATE_ARTICLE,
 } from "../actions/constant";
 import { ArticleState, ArticleAction, Article } from "../type";
@@ -81,6 +82,24 @@ const articleReducers = (
       return {
         ...state,
         articles: articleAfterDelCmt,
+      };
+    case TOGGLE_FAVOURITE:
+      console.log(state.articles);
+      const articlesNeedToggle = state.articles.map((item: Article) => {
+        if (item.articleId === action.payload.id) {
+          return {
+            ...item,
+            favoritesCount: item.favorited
+              ? item.favoritesCount - 1
+              : item.favoritesCount + 1,
+            favorited: !item.favorited,
+          };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        articles: articlesNeedToggle,
       };
     default:
       return state;

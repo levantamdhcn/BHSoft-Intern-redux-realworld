@@ -22,7 +22,7 @@ const postReducers = (state = initialState, action: action) => {
       };
     case TOGGLE_FAVOURITE:
       const postNeedToggle = state.posts.map((item: Post) => {
-        if (item.slug === action.payload) {
+        if (item.slug === action.payload.slug) {
           return {
             ...item,
             favoritesCount: item.favorited

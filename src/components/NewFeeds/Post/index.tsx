@@ -23,7 +23,7 @@ const Post = (props: PostType) => {
     dispatch(goArticle(id, slug));
   };
   const handleToggleFavourite = () => {
-    dispatch(toggleFavourite(slug));
+    dispatch(toggleFavourite(slug, id));
   };
   return (
     <div>
@@ -68,9 +68,15 @@ const Post = (props: PostType) => {
           <div className="post-footer">
             <span>Read more...</span>
             <ul className="tag-list">
-              {tagList?.map((tag) => (
-                <li className="tag-item">{tag}</li>
-              ))}
+              {Array.isArray(tagList) ? (
+                tagList?.map((tag) => (
+                  <li className="tag-item" key={tag}>
+                    {tag}
+                  </li>
+                ))
+              ) : (
+                <li key={tagList}>{tagList}</li>
+              )}
             </ul>
           </div>
         </a>

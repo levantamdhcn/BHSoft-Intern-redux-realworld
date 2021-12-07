@@ -40,7 +40,7 @@ export interface Post {
   description?: string;
   body?: string;
   createdAt?: string;
-  tagList?: [];
+  tagList?: [] | string;
   author: {
     username?: string;
     image?: string;
@@ -76,12 +76,13 @@ export interface Article {
   title: string;
   desc: string;
   content: string;
-  tagList?: [];
-  like?: number;
+  tagList: [];
   articleId: string;
   userId: string;
   createdAt: string;
   comments: Comments;
+  favoritesCount: number;
+  favorited: boolean;
 }
 
 export interface Articles extends Array<Article> {}

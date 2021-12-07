@@ -23,9 +23,12 @@ export const getPostAction =
     }
   };
 export const toggleFavourite =
-  (slug: string | undefined) => (dispatch: Dispatch<action>) => {
+  (slug: string | undefined, id: string) => (dispatch: Dispatch<action>) => {
     dispatch({
       type: TOGGLE_FAVOURITE,
-      payload: slug,
+      payload: {
+        slug,
+        id,
+      },
     });
   };
