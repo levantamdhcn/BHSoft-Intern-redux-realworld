@@ -30,7 +30,6 @@ function App() {
   const postSlug = useSelector(
     (state: any) => state.postReducers.currentPostSlug
   );
-
   return (
     <Router>
       <Layout className="layout">

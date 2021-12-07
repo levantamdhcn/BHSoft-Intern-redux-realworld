@@ -17,7 +17,6 @@ const Setting = () => {
     (state: any) => state.authReducers.currentUser.userId
   );
   const onFinish = (values: any) => {
-    console.log(values);
     const valuesToUpdate = {
       ...values,
       userId: userId,

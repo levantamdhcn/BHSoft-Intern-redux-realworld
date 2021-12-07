@@ -4,6 +4,7 @@ import {
   SIGN_IN_FAILED,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
+  UPDATE_ACCOUNT,
 } from "../actions/constant";
 import { Auth, action } from "../type";
 
@@ -72,6 +73,14 @@ const authReducers = (state = initialState, action: action) => {
           authenticated: false,
           userId: undefined,
           username: undefined,
+        },
+      };
+    case UPDATE_ACCOUNT:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          username: action.payload,
         },
       };
     default:
