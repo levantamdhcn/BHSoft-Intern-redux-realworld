@@ -1,10 +1,10 @@
 import { Button, Card } from "antd";
 import { HeartFilled } from "@ant-design/icons";
 import React from "react";
-import { Post as PostType } from "../../../stores/type";
+import { Post as PostType } from "../../stores/type";
 import { useDispatch } from "react-redux";
-import { goArticle } from "../../../stores/actions/articleActions";
-import { toggleFavourite } from "../../../stores/actions/postActions";
+import { goArticle } from "../../stores/actions/articleActions";
+import { toggleFavourite } from "../../stores/actions/postActions";
 
 const Post = (props: PostType) => {
   const {
@@ -37,11 +37,11 @@ const Post = (props: PostType) => {
         className="post-container"
       >
         <div className="post-meta">
-          <a href="#@user" className="post-article">
+          <a href={`/profile/${author.username}`} className="post-article">
             <img src={author?.image} alt="avatar" />
           </a>
           <div className="infor">
-            <a href="#@user" className="author">
+            <a href={`/profile/${author.username}`} className="author">
               {author?.username}
             </a>
             <span className="date">{createdAt}</span>

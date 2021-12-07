@@ -3,20 +3,19 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getUserInforById } from "../../../localStorage";
 import { Article, Post as PostType } from "../../../stores/type";
-import Post from "../../NewFeeds/Post";
+import Post from "../../Post";
 
-interface Props {}
+interface ArticlesToggleProps {
+  userId: string;
+}
 
 const { TabPane } = Tabs;
 
-export const ArticlesToggle = (props: Props) => {
-  const currentUserId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
-  );
-  const userInfor = getUserInforById(currentUserId);
+export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
+  const userInfor = getUserInforById(userId);
   const articles = useSelector((state: any) => state.articleReducers.articles);
   const myArticles = articles.filter(
-    (article: Article) => article.userId === currentUserId
+    (article: Article) => article.userId === userId
   );
   const author = {
     username: userInfor[0].username,

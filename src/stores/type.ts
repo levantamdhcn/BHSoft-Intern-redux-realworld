@@ -10,6 +10,7 @@ export interface User {
   email: string;
   image: string;
   bio: string;
+  following: Array<string>;
 }
 
 export interface Users extends Array<Article> {}

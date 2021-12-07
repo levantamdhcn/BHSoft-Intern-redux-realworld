@@ -1,6 +1,6 @@
 import { Tabs } from "antd";
 import React, { useEffect } from "react";
-import Post from "./Post";
+import Post from "../Post";
 import { useDispatch, useSelector } from "react-redux";
 import { Article, Post as PostType } from "../../stores/type";
 import { getPostAction } from "../../stores/actions/postActions";

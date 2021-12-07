@@ -41,12 +41,12 @@ const NewPost = ({ id }: NewPostProps) => {
 
       setTimeout(() => {
         history.push(`/article/${newData.articleId}`);
-      }, 2000);
+      }, 200);
     } else {
       dispatch(updateArticle(values));
       setTimeout(() => {
         history.push(`/article/${articleInfor[0].articleId}`);
-      }, 1000);
+      }, 200);
     }
   };
   return (

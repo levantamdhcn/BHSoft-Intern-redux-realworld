@@ -56,7 +56,7 @@ function App() {
           <Route path="/post/:slug">
             <PostPage slug={postSlug} />
           </Route>
-          <Route path="/profile">
+          <Route path="/profile/:id">
             {isLogged ? <ProfilePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/">

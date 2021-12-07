@@ -1,21 +1,33 @@
 import { Button, Col, Row } from "antd";
 import React from "react";
 import { SettingOutlined } from "@ant-design/icons";
-
-import { getUserInforById } from "../../../localStorage";
 import { useSelector } from "react-redux";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import { User } from "../../../stores/type";
+import { addFollow } from "../../../stores/actions/accountsActions";
+import { getUserInforById } from "../../../localStorage";
+import { useHistory } from "react-router";
 
 interface UserProfileProps {
   userId: string;
   handleAction: () => void;
+  userInfor: User;
 }
 
-export const UserProfile = ({ userId, handleAction }: UserProfileProps) => {
+export const UserProfile = ({ handleAction, userInfor }: UserProfileProps) => {
   const currentUserId = useSelector(
     (state: any) => state.authReducers.currentUser.userId
   );
-  const userInfor = getUserInforById(userId)[0];
+  const currentUserInfor = getUserInforById(currentUserId)[0];
+  const history = useHistory();
+
+  const handleFollow = () => {
+    addFollow(userInfor.userId, currentUserId);
+    setTimeout(() => {
+      history.go(0);
+    }, 200);
+  };
+
   return (
     <div className="user-profile">
       <Row gutter={[8, 8]} className="container small-container">
@@ -37,13 +49,24 @@ export const UserProfile = ({ userId, handleAction }: UserProfileProps) => {
         <Col span={24}>
           <Row gutter={[12, 12]} style={{ textAlign: "right" }}>
             <Col span={24}>
-              <Button className="ant-btn" onClick={handleAction}>
-                {currentUserId === userId ? (
+              <Button
+                className="ant-btn"
+                onClick={
+                  currentUserId === userInfor.userId
+                    ? handleAction
+                    : handleFollow
+                }
+              >
+                {currentUserId === userInfor.userId ? (
                   <SettingOutlined />
                 ) : (
                   <PlusOutlined />
                 )}
-                {currentUserId === userId ? "Edit Profile Settings" : "Follow"}
+                {currentUserId === userInfor.userId
+                  ? "Edit Profile Settings"
+                  : currentUserInfor.following.includes(userInfor.userId)
+                  ? "Unfollow"
+                  : "Follow"}
               </Button>
             </Col>
           </Row>

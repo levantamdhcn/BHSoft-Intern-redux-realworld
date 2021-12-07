@@ -8,31 +8,35 @@ export const updateAccount =
   (dispatch: Dispatch<action>) => {
     const accounts = getAllAccounts();
     if (password !== "") {
-      const newAccont = accounts
-        .filter((account: User) => account.userId === userId)
-        .map((account: User) => ({
-          ...account,
-          image,
-          email,
-          username,
-          bio,
-          password,
-        }));
+      const newAccont = accounts.map((account: User) => {
+        if (account.userId === userId) {
+          return {
+            ...account,
+            image,
+            email,
+            username,
+            bio,
+            password,
+          };
+        } else return account;
+      });
       localStorage.setItem("accounts", JSON.stringify(newAccont));
       dispatch({
         type: UPDATE_ACCOUNT,
         payload: username,
       });
     } else {
-      const newAccont = accounts
-        .filter((account: User) => account.userId === userId)
-        .map((account: User) => ({
-          ...account,
-          image,
-          email,
-          username,
-          bio,
-        }));
+      const newAccont = accounts.map((account: User) => {
+        if (account.userId === userId) {
+          return {
+            ...account,
+            image,
+            email,
+            username,
+            bio,
+          };
+        } else return account;
+      });
       localStorage.setItem("accounts", JSON.stringify(newAccont));
       dispatch({
         type: UPDATE_ACCOUNT,
@@ -40,3 +44,22 @@ export const updateAccount =
       });
     }
   };
+export const addFollow = (toId: string, fromId: string) => {
+  const accounts = getAllAccounts();
+  const newAccont = accounts.map((account: User) => {
+    if (account.userId === fromId) {
+      if (!account.following.includes(toId)) {
+        return {
+          ...account,
+          following: account.following.concat([toId]),
+        };
+      } else
+        return {
+          ...account,
+          following: account.following.filter((item: string) => item !== toId),
+        };
+    }
+    return account;
+  });
+  localStorage.setItem("accounts", JSON.stringify(newAccont));
+};

@@ -14,3 +14,4 @@ export const TOGGLE_FAVOURITE = "TOGGLE_FAVOURITE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DEL_COMMENT = "DEL_COMMENT";
 export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
+export const ADD_FOLLOW = "ADD_FOLLOW";
