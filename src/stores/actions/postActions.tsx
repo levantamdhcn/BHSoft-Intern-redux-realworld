@@ -2,7 +2,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../stores";
 import { getPost } from "../../axios/index";
-import { GET_POST, TOGGLE_FAVOURITE } from "./constant";
+import { GET_POST, TOGGLE_FAVOURITE } from "../constant";
 import { Dispatch } from "react";
 import { action } from "../type";
 

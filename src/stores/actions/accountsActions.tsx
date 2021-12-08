@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { getAllAccounts } from "../../localStorage";
 import { action, User } from "../type";
-import { UPDATE_ACCOUNT } from "./constant";
+import { UPDATE_ACCOUNT } from "../constant";
 
 export const updateAccount =
   ({ userId, image, username, email, bio, password }: User) =>

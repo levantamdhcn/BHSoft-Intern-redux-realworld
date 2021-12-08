@@ -50,7 +50,7 @@ export const UserProfile = ({ handleAction, userInfor }: UserProfileProps) => {
           <Row gutter={[12, 12]} style={{ textAlign: "right" }}>
             <Col span={24}>
               <Button
-                className="ant-btn"
+                className="ant-btn btn-secondary"
                 onClick={
                   currentUserId === userInfor.userId
                     ? handleAction

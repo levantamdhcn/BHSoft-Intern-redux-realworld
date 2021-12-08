@@ -6,7 +6,12 @@ import { useDispatch } from "react-redux";
 import { goArticle } from "../../stores/actions/articleActions";
 import { toggleFavourite } from "../../stores/actions/postActions";
 
-const Post = (props: PostType) => {
+interface PostProps {
+  post: PostType;
+  linkToProfile: string;
+}
+
+const Post = (props: PostProps) => {
   const {
     title,
     author,
@@ -17,7 +22,7 @@ const Post = (props: PostType) => {
     favoritesCount,
     favorited,
     slug,
-  } = props;
+  } = props.post;
   const dispatch = useDispatch();
   const handleOnClick = () => {
     dispatch(goArticle(id, slug));
@@ -37,11 +42,11 @@ const Post = (props: PostType) => {
         className="post-container"
       >
         <div className="post-meta">
-          <a href={`/profile/${author.username}`} className="post-article">
+          <a href={props.linkToProfile} className="post-article">
             <img src={author?.image} alt="avatar" />
           </a>
           <div className="infor">
-            <a href={`/profile/${author.username}`} className="author">
+            <a href={props.linkToProfile} className="author">
               {author?.username}
             </a>
             <span className="date">{createdAt}</span>
@@ -75,7 +80,9 @@ const Post = (props: PostType) => {
                   </li>
                 ))
               ) : (
-                <li key={tagList}>{tagList}</li>
+                <li key={tagList} className="tag-item">
+                  {tagList}
+                </li>
               )}
             </ul>
           </div>

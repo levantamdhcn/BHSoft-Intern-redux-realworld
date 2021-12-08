@@ -4,7 +4,7 @@ import {
   GET_POST,
   GO_ARTICLE,
   TOGGLE_FAVOURITE,
-} from "../actions/constant";
+} from "../constant";
 import { action, Post, PostState } from "../type";
 
 const initialState: PostState = {

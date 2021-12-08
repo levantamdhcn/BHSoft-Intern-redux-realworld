@@ -5,7 +5,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   UPDATE_ACCOUNT,
-} from "../actions/constant";
+} from "../constant";
 import { Auth, action } from "../type";
 
 const initialState: Auth = {

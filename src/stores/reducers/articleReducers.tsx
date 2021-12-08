@@ -6,7 +6,7 @@ import {
   GO_ARTICLE,
   TOGGLE_FAVOURITE,
   UPDATE_ARTICLE,
-} from "../actions/constant";
+} from "../constant";
 import { ArticleState, ArticleAction, Article } from "../type";
 
 const initialState: ArticleState = {

@@ -24,7 +24,32 @@ const NewFeeds = () => {
       <Tabs defaultActiveKey="1" className="newfeeds-holder">
         {isLogged ? (
           <TabPane tab="Your Feed" key="1">
-            No articles are here... yet.
+            <ul className="post-list">
+              {posts.map((item: PostType, index: number) => {
+                const postInfor = {
+                  title: item.title,
+                  author: item.author,
+                  tagList: item.tagList,
+                  createdAt: item.createdAt,
+                  description: item.description,
+                  id: "",
+                  favoritesCount: item.favoritesCount,
+                  favorited: item.favorited,
+                  slug: item.slug,
+                  comments: [],
+                };
+                return (
+                  <li key={index}>
+                    <Post
+                      post={postInfor}
+                      linkToProfile={
+                        "https://react-redux.realworld.io/#/@Gerome?_k=9nzvys"
+                      }
+                    />
+                  </li>
+                );
+              })}
+            </ul>
           </TabPane>
         ) : (
           ""
@@ -36,18 +61,22 @@ const NewFeeds = () => {
                 username: getUserInforById(item.userId)[0].username,
                 image: getUserInforById(item.userId)[0].image,
               };
+              const post = {
+                title: item.title,
+                author: author,
+                tagList: item.tagList,
+                createdAt: item.createdAt,
+                description: item.desc,
+                id: item.articleId,
+                favoritesCount: item.favoritesCount,
+                favorited: item.favorited,
+                comments: [],
+              };
               return (
                 <li key={index}>
                   <Post
-                    title={item.title}
-                    author={author}
-                    tagList={item.tagList}
-                    createdAt={item.createdAt}
-                    description={item.desc}
-                    id={item.articleId}
-                    favoritesCount={item.favoritesCount}
-                    favorited={item.favorited}
-                    comments={[]}
+                    post={post}
+                    linkToProfile={`/profile/${author.username}`}
                   />
                 </li>
               );
@@ -55,19 +84,25 @@ const NewFeeds = () => {
           </ul>
           <ul className="post-list">
             {posts.map((item: PostType, index: number) => {
+              const postInfor = {
+                title: item.title,
+                author: item.author,
+                tagList: item.tagList,
+                createdAt: item.createdAt,
+                description: item.description,
+                id: "",
+                favoritesCount: item.favoritesCount,
+                favorited: item.favorited,
+                slug: item.slug,
+                comments: [],
+              };
               return (
                 <li key={index}>
                   <Post
-                    title={item.title}
-                    author={item.author}
-                    tagList={item.tagList}
-                    createdAt={item.createdAt}
-                    description={item.description}
-                    id={""}
-                    favoritesCount={item.favoritesCount}
-                    favorited={item.favorited}
-                    slug={item.slug}
-                    comments={[]}
+                    post={postInfor}
+                    linkToProfile={
+                      "https://react-redux.realworld.io/#/@Gerome?_k=9nzvys"
+                    }
                   />
                 </li>
               );

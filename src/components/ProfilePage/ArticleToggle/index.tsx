@@ -28,18 +28,22 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
         <ul className="post-list">
           {myArticles.length > 0
             ? myArticles.map((item: Article, index: number) => {
+                const postInfor = {
+                  title: item.title,
+                  author: author,
+                  tagList: item.tagList,
+                  createdAt: item.createdAt,
+                  description: item.desc,
+                  id: item.articleId,
+                  favoritesCount: item.favoritesCount,
+                  favorited: item.favorited,
+                  comments: [],
+                };
                 return (
                   <li key={index}>
                     <Post
-                      title={item.title}
-                      author={author}
-                      tagList={item.tagList}
-                      createdAt={item.createdAt}
-                      description={item.desc}
-                      id={item.articleId}
-                      favoritesCount={item.favoritesCount}
-                      favorited={item.favorited}
-                      comments={[]}
+                      post={postInfor}
+                      linkToProfile={`/profile/${author.username}`}
                     />
                   </li>
                 );
@@ -56,18 +60,22 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
                 username: getUserInforById(item.userId)[0].username,
                 image: getUserInforById(item.userId)[0].image,
               };
+              const postInfor = {
+                title: item.title,
+                author: author,
+                tagList: item.tagList,
+                createdAt: item.createdAt,
+                description: item.desc,
+                id: item.articleId,
+                favoritesCount: item.favoritesCount,
+                favorited: item.favorited,
+                comments: [],
+              };
               return (
                 <li key={index}>
                   <Post
-                    title={item.title}
-                    author={author}
-                    tagList={item.tagList}
-                    createdAt={item.createdAt}
-                    description={item.desc}
-                    id={item.articleId}
-                    favoritesCount={item.favoritesCount}
-                    favorited={item.favorited}
-                    comments={[]}
+                    post={postInfor}
+                    linkToProfile={`/profile/${author.username}`}
                   />
                 </li>
               );
@@ -77,19 +85,25 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
           {posts
             .filter((item: PostType) => item.favorited === true)
             .map((item: PostType, index: number) => {
+              const postInfor = {
+                title: item.title,
+                author: item.author,
+                tagList: item.tagList,
+                createdAt: item.createdAt,
+                description: item.description,
+                id: "",
+                favoritesCount: item.favoritesCount,
+                favorited: item.favorited,
+                slug: item.slug,
+                comments: [],
+              };
               return (
                 <li key={index}>
                   <Post
-                    title={item.title}
-                    author={item.author}
-                    tagList={item.tagList}
-                    createdAt={item.createdAt}
-                    description={item.description}
-                    id={""}
-                    favoritesCount={item.favoritesCount}
-                    favorited={item.favorited}
-                    slug={item.slug}
-                    comments={[]}
+                    post={postInfor}
+                    linkToProfile={
+                      "https://react-redux.realworld.io/#/@Gerome?_k=7mke5q"
+                    }
                   />
                 </li>
               );

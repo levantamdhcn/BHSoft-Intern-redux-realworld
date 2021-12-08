@@ -7,7 +7,7 @@ import {
   DEL_COMMENT,
   GO_ARTICLE,
   UPDATE_ARTICLE,
-} from "./constant";
+} from "../constant";
 
 export const addArtilce =
   (data: Article) => (dispatch: Dispatch<ArticleAction>) => {

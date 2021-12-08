@@ -4,7 +4,7 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_OUT,
   SIGN_UP_FAILED,
-} from "./constant";
+} from "../constant";
 import { User } from "../type";
 
 export const signUpAction =
