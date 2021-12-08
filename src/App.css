@@ -36,6 +36,7 @@
   color: var(--primary-color) !important;
   padding: 4px 8px;
   border-radius: 4px;
+  border-color: var(--primary-color);
 }
 
 .ant-btn.btn-primary svg {
