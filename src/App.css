@@ -304,6 +304,8 @@
   border: 1px solid #ddd;
   border-radius: 160px;
   padding: 0 8px;
+  margin-right: 5px;
+  display: inline-block;
 }
 
 /* POPULAR TAGS */
@@ -311,11 +313,17 @@
 .tags-holder {
   background-color: #f3f3f3;
   font-size: 16px;
-  padding: 5px 10px 10px;
+  padding: 5px 10px 10px 20px;
   border-radius: 4px;
 }
 
 .tags-holder h1 {
+  font-size: 16px;
+  color: #373a3c;
+  font-weight: 400;
+}
+
+.tags-holder li {
   font-size: 16px;
   color: #373a3c;
   font-weight: 400;

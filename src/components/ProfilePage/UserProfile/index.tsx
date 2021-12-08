@@ -9,12 +9,10 @@ import { getUserInforById } from "../../../localStorage";
 import { useHistory } from "react-router";
 
 interface UserProfileProps {
-  userId: string;
-  handleAction: () => void;
   userInfor: User;
 }
 
-export const UserProfile = ({ handleAction, userInfor }: UserProfileProps) => {
+export const UserProfile = ({ userInfor }: UserProfileProps) => {
   const currentUserId = useSelector(
     (state: any) => state.authReducers.currentUser.userId
   );
@@ -26,6 +24,10 @@ export const UserProfile = ({ handleAction, userInfor }: UserProfileProps) => {
     setTimeout(() => {
       history.go(0);
     }, 200);
+  };
+
+  const handleAction = () => {
+    history.push("/setting");
   };
 
   return (

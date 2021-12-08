@@ -5,7 +5,7 @@ import { CommentForm } from "../ArticleComments/CommentForm";
 
 interface Props {
   body?: string;
-  tagList?: [];
+  tagList?: [] | string;
   comments: [];
   id: string;
 }
@@ -23,11 +23,17 @@ export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <ul className="tag-list">
-                {tagList?.map((tag) => (
-                  <li key={tag} className="tag-item">
-                    {tag}
+                {Array.isArray(tagList) ? (
+                  tagList.map((tag) => (
+                    <li key={tag} className="tag-item">
+                      {tag}
+                    </li>
+                  ))
+                ) : (
+                  <li key={tagList} className="tag-item">
+                    {tagList}
                   </li>
-                ))}
+                )}
               </ul>
             </Col>
           </Row>

@@ -18,7 +18,6 @@ import NewPost from "./components/NewPost";
 import Setting from "./components/Setting";
 import ProfilePage from "./components/ProfilePage";
 import { ArticlePage } from "./components/ArticlePage";
-import { PostPage } from "./components/PostPage";
 
 function App() {
   const isLogged = useSelector(
@@ -26,9 +25,6 @@ function App() {
   );
   const articleId = useSelector(
     (state: any) => state.articleReducers.currentArticle
-  );
-  const postSlug = useSelector(
-    (state: any) => state.postReducers.currentPostSlug
   );
   return (
     <Router>
@@ -52,9 +48,6 @@ function App() {
           </Route>
           <Route path="/article/:id">
             {isLogged ? <ArticlePage id={articleId} /> : <Redirect to="/" />}
-          </Route>
-          <Route path="/post/:slug">
-            <PostPage slug={postSlug} />
           </Route>
           <Route path="/profile/:id">
             {isLogged ? <ProfilePage /> : <Redirect to="/" />}

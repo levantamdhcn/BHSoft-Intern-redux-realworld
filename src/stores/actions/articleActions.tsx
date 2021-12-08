@@ -6,6 +6,7 @@ import {
   DEL_ARTICLE,
   DEL_COMMENT,
   GO_ARTICLE,
+  TOGGLE_FAVOURITE,
   UPDATE_ARTICLE,
 } from "../constant";
 
@@ -60,3 +61,13 @@ export const deleteComment = (id: string) => (dispatch: Dispatch<action>) => {
     payload: id,
   });
 };
+export const toggleFavourite =
+  (slug: string | undefined, id: string) => (dispatch: Dispatch<action>) => {
+    dispatch({
+      type: TOGGLE_FAVOURITE,
+      payload: {
+        slug,
+        id,
+      },
+    });
+  };

@@ -96,6 +96,5 @@ export interface ArticleState {
 
 export interface AppState {
   authReducers?: any;
-  postReducers?: PostState;
   articleReducers?: ArticleState;
 }

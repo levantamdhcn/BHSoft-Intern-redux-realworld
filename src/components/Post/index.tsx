@@ -4,7 +4,7 @@ import React from "react";
 import { Post as PostType } from "../../stores/type";
 import { useDispatch } from "react-redux";
 import { goArticle } from "../../stores/actions/articleActions";
-import { toggleFavourite } from "../../stores/actions/postActions";
+import { toggleFavourite } from "../../stores/actions/articleActions";
 
 interface PostProps {
   post: PostType;
