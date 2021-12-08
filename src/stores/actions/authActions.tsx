@@ -54,7 +54,7 @@ export const signUpAction =
 
 export const signInAction =
   (email: string, password: string) => (dispatch: Dispatch<Action>) => {
-    let accounts = JSON.parse(localStorage.getItem("accounts") || "{}") || [];
+    let accounts = JSON.parse(localStorage.getItem("accounts") || "[]") || [];
     const currentUser = accounts.filter(
       (item: User) => item.email === email && item.password === password
     );
