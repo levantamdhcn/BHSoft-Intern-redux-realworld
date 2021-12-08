@@ -11,6 +11,7 @@ const middleWare = [thunk];
 const saveSubsetBlacklistFilter = createBlacklistFilter("authReducers", [
   "signInErrorMsg",
   "signUpErrorMsg",
+  "isUpdateSuccess",
   "username",
 ]);
 

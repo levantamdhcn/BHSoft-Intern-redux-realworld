@@ -8,6 +8,7 @@ import { signOutAction } from "../../stores/actions/authActions";
 
 const Setting = () => {
   const [password, setPassword] = useState<string>("");
+
   const dispatch = useDispatch();
   const history = useHistory();
   const handleLogOut = () => {

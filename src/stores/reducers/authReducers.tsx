@@ -9,7 +9,7 @@ import {
 import { Auth, action } from "../type";
 
 const initialState: Auth = {
-  isSigninSuccess: false,
+  isSignInSuccess: false,
   signInErrorMsg: [],
   signUpErrorMsg: [],
   currentUser: {
@@ -78,6 +78,7 @@ const authReducers = (state = initialState, action: action) => {
     case UPDATE_ACCOUNT:
       return {
         ...state,
+        isUpdateSuccess: true,
         currentUser: {
           ...state.currentUser,
           username: action.payload,

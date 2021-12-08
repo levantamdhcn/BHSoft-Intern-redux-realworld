@@ -16,8 +16,8 @@ export interface User {
 export interface Users extends Array<Article> {}
 
 export interface Auth {
-  isSigninSuccess?: boolean;
-  isSignUpSuccess?: boolean;
+  isSignInSuccess?: boolean;
+  isUpdateSuccess?: boolean;
   signInErrorMsg?: Array<string>;
   signUpErrorMsg?: Array<string>;
   currentUser?: {
