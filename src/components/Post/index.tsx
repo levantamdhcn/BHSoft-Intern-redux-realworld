@@ -5,6 +5,7 @@ import { Post as PostType } from "../../stores/type";
 import { useDispatch } from "react-redux";
 import { goArticle } from "../../stores/actions/articleActions";
 import { toggleFavourite } from "../../stores/actions/articleActions";
+import { Link } from "react-router-dom";
 
 interface PostProps {
   post: PostType;
@@ -42,13 +43,13 @@ const Post = (props: PostProps) => {
         className="post-container"
       >
         <div className="post-meta">
-          <a href={props.linkToProfile} className="post-article">
+          <Link to={props.linkToProfile} className="post-article">
             <img src={author?.image} alt="avatar" />
-          </a>
+          </Link>
           <div className="infor">
-            <a href={props.linkToProfile} className="author">
+            <Link to={props.linkToProfile} className="author">
               {author?.username}
-            </a>
+            </Link>
             <span className="date">{createdAt}</span>
           </div>
           <div className="post-react">
@@ -63,8 +64,8 @@ const Post = (props: PostProps) => {
             </Button>
           </div>
         </div>
-        <a
-          href={id ? `/article/${id}` : `/post/${slug}`}
+        <Link
+          to={id ? `/article/${id}` : `/post/${slug}`}
           className="post-preview"
           onClick={() => handleOnClick()}
         >
@@ -86,7 +87,7 @@ const Post = (props: PostProps) => {
               )}
             </ul>
           </div>
-        </a>
+        </Link>
       </Card>
     </div>
   );
