@@ -6,7 +6,7 @@ import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import { User } from "../../../stores/type";
 import { addFollow } from "../../../stores/actions/accountsActions";
 import { getUserInforById } from "../../../localStorage";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 interface UserProfileProps {
   userInfor: User;
@@ -18,11 +18,12 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
   );
   const currentUserInfor = getUserInforById(currentUserId)[0];
   const history = useHistory();
+  const location = useLocation();
 
   const handleFollow = () => {
     addFollow(userInfor.userId, currentUserId);
     setTimeout(() => {
-      history.go(0);
+      history.push(location.pathname);
     }, 200);
   };
 
