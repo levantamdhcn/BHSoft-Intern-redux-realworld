@@ -5,6 +5,11 @@ import { useHistory } from "react-router";
 import { getUserInforById } from "../../../localStorage";
 import { deleteArticle } from "../../../stores/actions/articleActions";
 import { Article, Articles } from "../../../stores/type";
+import {
+  ArticleMeta,
+  StyledArticleBanner,
+} from "../../styled/ArticlePage.styled";
+import { InnerContainer } from "../../styled/Container.styled";
 
 interface ArticleBannerProps {
   id: string;
@@ -32,40 +37,38 @@ export const ArticleBanner = ({ id, articlesMeta }: ArticleBannerProps) => {
   };
 
   return (
-    <div>
-      <div className="banner article-banner">
-        <div className="container small-container">
-          <h1 className="article-title">{articleInfo[0].title}</h1>
-          <div className="post-meta">
-            <a href="#@user" className="post-article">
-              <img src={userCreateInfo[0].image} alt="avatar" />
+    <StyledArticleBanner>
+      <InnerContainer>
+        <h1 className="article-title">{articleInfo[0].title}</h1>
+        <ArticleMeta>
+          <a href="#@user" className="post-article">
+            <img src={userCreateInfo[0].image} alt="avatar" />
+          </a>
+          <div className="infor">
+            <a href="#@user" className="author">
+              {userCreateInfo[0].username}
             </a>
-            <div className="infor article-infor">
-              <a href="#@user" className="author artilce-author">
-                {userCreateInfo[0].username}
-              </a>
-              <span className="date">Sat Dec 04 2021</span>
-            </div>
-            <span className="article-action">
-              <Button
-                ghost
-                size="middle"
-                className="ant-btn btn-outline-secondary"
-                onClick={handleUpdate}
-              >
-                Edit Article
-              </Button>
-              <Button
-                ghost
-                className="ant-btn btn-outline-danger"
-                onClick={handleDelete}
-              >
-                Delete Article
-              </Button>
-            </span>
+            <span className="date">Sat Dec 04 2021</span>
           </div>
-        </div>
-      </div>
-    </div>
+          <span className="article-action">
+            <Button
+              ghost
+              size="middle"
+              className="ant-btn btn-outline-secondary"
+              onClick={handleUpdate}
+            >
+              Edit Article
+            </Button>
+            <Button
+              ghost
+              className="ant-btn btn-outline-danger"
+              onClick={handleDelete}
+            >
+              Delete Article
+            </Button>
+          </span>
+        </ArticleMeta>
+      </InnerContainer>
+    </StyledArticleBanner>
   );
 };

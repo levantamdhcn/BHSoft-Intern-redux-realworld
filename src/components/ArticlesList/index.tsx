@@ -2,6 +2,7 @@ import React from "react";
 import { getUserInforById } from "../../localStorage";
 import { Articles, Article } from "../../stores/type";
 import Post from "../Post";
+import { PostItem, PostList } from "../styled/Post.styled";
 
 interface Props {
   articles: Articles;
@@ -9,7 +10,7 @@ interface Props {
 
 export const ArticlesList = ({ articles }: Props) => {
   return (
-    <ul className="post-list">
+    <PostList className="post-list">
       {articles.map((item: Article, index: number) => {
         const author = {
           username: getUserInforById(item.userId)[0].username,
@@ -27,11 +28,11 @@ export const ArticlesList = ({ articles }: Props) => {
           comments: [],
         };
         return (
-          <li key={index}>
+          <PostItem key={index}>
             <Post post={post} linkToProfile={`/profile/${author.username}`} />
-          </li>
+          </PostItem>
         );
       })}
-    </ul>
+    </PostList>
   );
 };

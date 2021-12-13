@@ -1,10 +1,12 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Col, Form, Input, Row } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getUserInforById } from "../../localStorage";
 import { updateAccount } from "../../stores/actions/accountsActions";
 import { signOutAction } from "../../stores/actions/authActions";
+import { FormItem } from "../styled/Form.styled";
+import { StyledButton } from "../styled/Button.styled";
 
 const Setting = () => {
   const [password, setPassword] = useState<string>("");
@@ -44,61 +46,49 @@ const Setting = () => {
           <Col span={8} offset={7}>
             <Row>
               <Col span={24}>
-                <Form.Item name="image">
+                <FormItem name="image">
                   <Input size={"large"} placeholder="URL of profile picture" />
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item name="username">
+                <FormItem size="large" name="username">
+                  <Input placeholder="Username" />
+                </FormItem>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <FormItem name="bio">
+                  <Input.TextArea rows={6} placeholder="Short bio about you" />
+                </FormItem>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <FormItem name="email" size="large">
+                  <Input placeholder="Email" />
+                </FormItem>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <FormItem size="large" name="password">
                   <Input
-                    className="form-input-large form-text-large"
-                    placeholder="Username"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Form.Item name="bio">
-                  <Input.TextArea
-                    rows={6}
-                    className="form-text-large"
-                    placeholder="Short bio about you"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Form.Item name="email">
-                  <Input
-                    className="form-input-large form-text-large"
-                    placeholder="Email"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Form.Item>
-                  <Input
-                    className="form-input-large form-text-large"
                     placeholder="New Password"
-                    name="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <Row gutter={[16, 16]}>
               <Col span={24} style={{ textAlign: "right" }}>
-                <Form.Item>
-                  <Button className="btn ant-btn btn-submit" htmlType="submit">
+                <FormItem>
+                  <StyledButton status="submit" htmlType="submit">
                     Update Settings
-                  </Button>
-                </Form.Item>
+                  </StyledButton>
+                </FormItem>
               </Col>
             </Row>
             <Row gutter={[16, 16]}>
@@ -108,9 +98,9 @@ const Setting = () => {
             </Row>
             <Row gutter={[16, 16]}>
               <Col span={24} style={{ textAlign: "left" }}>
-                <Button className="ant-btn btn-logout" onClick={handleLogOut}>
+                <StyledButton status="logout" onClick={handleLogOut}>
                   Or click here to logout.
-                </Button>
+                </StyledButton>
               </Col>
             </Row>
           </Col>

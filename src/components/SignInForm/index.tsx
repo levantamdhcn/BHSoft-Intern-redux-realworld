@@ -1,10 +1,18 @@
-import { Form, Input, Button, Row, Col } from "antd";
-import { Content } from "antd/lib/layout/layout";
-import { NavLink, useHistory } from "react-router-dom";
+import { Form, Input, Row, Col } from "antd";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { authActions } from "../../stores/index";
 import { useState } from "react";
+import { SmallContent } from "../styled/Content.styled";
+import {
+  FormItem,
+  FormMsgItem,
+  FormMsgList,
+  FormNavigate,
+  FormTitle,
+} from "../styled/Form.styled";
+import { StyledButton } from "../styled/Button.styled";
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
@@ -34,32 +42,28 @@ const SignIn = () => {
   };
 
   return (
-    <Content style={{ padding: "0 50px" }}>
+    <SmallContent>
       <Row gutter={[16, 16]}>
         <Col span={10} offset={4} style={{ textAlign: "center" }}>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <h1 className="form-title">Sign In</h1>
+              <FormTitle>Sign In</FormTitle>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <NavLink to="/signup" className="form-navigate">
-                Need an account?
-              </NavLink>
+              <FormNavigate to="/signup">Need an account?</FormNavigate>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <ul className="error-msg-holder">
+              <FormMsgList>
                 {errorMsg
                   ? errorMsg.map((item: string) => (
-                      <li className="error-msg" key={item}>
-                        {item}
-                      </li>
+                      <FormMsgItem key={item}>{item}</FormMsgItem>
                     ))
                   : ""}
-              </ul>
+              </FormMsgList>
             </Col>
           </Row>
         </Col>
@@ -73,43 +77,37 @@ const SignIn = () => {
             autoComplete="off"
             onFinish={onFinish}
           >
-            <Form.Item
+            <FormItem
               name="Email"
               rules={[{ required: true, message: "Please input your email!" }]}
-              className="form-input"
             >
               <Input
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
 
-            <Form.Item
+            <FormItem
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
-              className="form-input"
             >
               <Input.Password
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
 
-            <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="ant-btn btn-submit"
-              >
+            <FormItem wrapperCol={{ offset: 10, span: 16 }}>
+              <StyledButton status="submit" htmlType="submit">
                 Sign In
-              </Button>
-            </Form.Item>
+              </StyledButton>
+            </FormItem>
           </Form>
         </Col>
       </Row>
-    </Content>
+    </SmallContent>
   );
 };
 export default SignIn;

@@ -1,6 +1,4 @@
-import { Layout } from "antd";
 import React from "react";
-import "./App.css";
 import AppBanner from "./components/Banner";
 import AppContent from "./components/Content";
 import AppFooter from "./components/Footer";
@@ -18,6 +16,8 @@ import NewPost from "./components/NewPost";
 import Setting from "./components/Setting";
 import ProfilePage from "./components/ProfilePage";
 import { ArticlePage } from "./components/ArticlePage";
+import { GlobleStyle } from "./globalStyles";
+import { StyledLayout } from "./components/styled/Layout.styled";
 
 function App() {
   const isLogged = useSelector(
@@ -28,7 +28,8 @@ function App() {
   );
   return (
     <Router>
-      <Layout className="layout">
+      <GlobleStyle />
+      <StyledLayout>
         <AppHeader />
         <Switch>
           <Route path="/signin">
@@ -58,7 +59,7 @@ function App() {
           </Route>
         </Switch>
         <AppFooter />
-      </Layout>
+      </StyledLayout>
     </Router>
   );
 }

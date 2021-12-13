@@ -1,5 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
+import { Container } from "../../styled/Container.styled";
+import { TagItem, TagList } from "../../styled/TagsHolder.styled";
 import { ArticleComments } from "../ArticleComments";
 import { CommentForm } from "../ArticleComments/CommentForm";
 
@@ -12,7 +14,7 @@ interface Props {
 
 export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
   return (
-    <div className="container">
+    <Container>
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Row gutter={[16, 16]}>
@@ -22,19 +24,13 @@ export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24}>
-              <ul className="tag-list">
+              <TagList>
                 {Array.isArray(tagList) ? (
-                  tagList.map((tag) => (
-                    <li key={tag} className="tag-item">
-                      {tag}
-                    </li>
-                  ))
+                  tagList.map((tag) => <TagItem key={tag}>{tag}</TagItem>)
                 ) : (
-                  <li key={tagList} className="tag-item">
-                    {tagList}
-                  </li>
+                  <TagItem key={tagList}>{tagList}</TagItem>
                 )}
-              </ul>
+              </TagList>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
@@ -45,6 +41,6 @@ export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
           </Row>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };

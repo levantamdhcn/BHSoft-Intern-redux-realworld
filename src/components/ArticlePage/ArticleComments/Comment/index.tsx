@@ -3,6 +3,10 @@ import { Col, Row } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteComment } from "../../../../stores/actions/articleActions";
+import {
+  CommentFooter,
+  StyledComment,
+} from "../../../styled/ArticlePage.styled";
 
 interface CommentProps {
   body: string;
@@ -26,7 +30,7 @@ export const Comment = ({
   return (
     <Row gutter={[16, 16]}>
       <Col span={10} offset={7}>
-        <div className="card">
+        <StyledComment>
           <Row>
             <Col span={24}>
               <div className="card-block">
@@ -36,7 +40,7 @@ export const Comment = ({
           </Row>
           <Row>
             <Col span={24}>
-              <div className="card-footer">
+              <CommentFooter>
                 <a href="lvtann.com" className="comment-author">
                   <img src={image} alt="author-avt" />
                 </a>
@@ -47,10 +51,10 @@ export const Comment = ({
                 <span className="comment-action">
                   <DeleteFilled onClick={handleDelComment} />
                 </span>
-              </div>
+              </CommentFooter>
             </Col>
           </Row>
-        </div>
+        </StyledComment>
       </Col>
     </Row>
   );

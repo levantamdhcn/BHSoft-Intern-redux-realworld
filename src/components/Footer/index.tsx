@@ -1,16 +1,16 @@
-import { GithubFilled } from '@ant-design/icons'
-import { Footer } from 'antd/lib/layout/layout'
-import React from 'react'
+import { GithubFilled } from "@ant-design/icons";
+import React from "react";
+import { StyledFooter } from "../styled/Footer.styled";
 
 const AppFooter = () => {
-    return (
-        <Footer className='footer'>
-            <a href="https://github.com/gothinkster/react-redux-realworld-example-app">
-                <GithubFilled />
-                <p>Fork on GitHub</p>
-            </a>
-        </Footer>
-    )
-}
+  return (
+    <StyledFooter>
+      <a href="https://github.com/gothinkster/react-redux-realworld-example-app">
+        <GithubFilled />
+        <p>Fork on GitHub</p>
+      </a>
+    </StyledFooter>
+  );
+};
 
-export default AppFooter
+export default AppFooter;

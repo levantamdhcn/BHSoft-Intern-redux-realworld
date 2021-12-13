@@ -1,10 +1,15 @@
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import moment from "moment";
 import TextArea from "rc-textarea";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInforById } from "../../../../localStorage";
 import { addComment } from "../../../../stores/actions/articleActions";
+import {
+  CommentFooter,
+  StyledComment,
+} from "../../../styled/ArticlePage.styled";
+import { StyledButton } from "../../../styled/Button.styled";
 
 interface CommentFormProps {
   id: string;
@@ -35,7 +40,7 @@ export const CommentForm = ({ id }: CommentFormProps) => {
   return (
     <Row gutter={[16, 16]}>
       <Col span={10} offset={7}>
-        <div className="card">
+        <StyledComment>
           <Row>
             <Col span={24}>
               <TextArea
@@ -47,23 +52,20 @@ export const CommentForm = ({ id }: CommentFormProps) => {
           </Row>
           <Row>
             <Col span={24}>
-              <div className="card-footer">
+              <CommentFooter className="card-footer">
                 <a href="lvtann.com" className="comment-author">
                   <img
                     src="https://api.realworld.io/images/smiley-cyrus.jpeg"
                     alt="author-avt"
                   />
                 </a>
-                <Button
-                  className="ant-btn btn-submit"
-                  onClick={handleAddComment}
-                >
+                <StyledButton status="submit" onClick={handleAddComment}>
                   Post Comment
-                </Button>
-              </div>
+                </StyledButton>
+              </CommentFooter>
             </Col>
           </Row>
-        </div>
+        </StyledComment>
       </Col>
     </Row>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { TagsHolder, TagList, TagItem } from "../../styled/TagsHolder.styled";
 
 interface PopularTagsProps {
   tagList: Array<string>;
@@ -12,20 +13,16 @@ const PopularTags = ({ tagList }: PopularTagsProps) => {
     }, 1500);
   }, []);
   return (
-    <div className="tags-holder">
+    <TagsHolder>
       <h1>Popular Tags</h1>
-      <ul style={{ paddingLeft: "0", listStyle: "none" }}>
+      <TagList>
         {isLoading
           ? "Loading..."
           : tagList.map((item: string) => {
-              return (
-                <li key={item} className="tag-item">
-                  {item}
-                </li>
-              );
+              return <TagItem key={item}>{item}</TagItem>;
             })}
-      </ul>
-    </div>
+      </TagList>
+    </TagsHolder>
   );
 };
 

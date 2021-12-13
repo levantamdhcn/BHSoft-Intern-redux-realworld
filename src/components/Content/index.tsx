@@ -1,9 +1,10 @@
 import React from "react";
 import NewFeeds from "../NewFeeds/index";
 import PopularTags from "../NewFeeds/PopularTags";
-import { Row, Col, Layout } from "antd";
+import { Row, Col } from "antd";
 import { useSelector } from "react-redux";
 import { Article } from "../../stores/type";
+import { Content } from "../styled/Content.styled";
 
 const AppContent = () => {
   const articles = useSelector((state: any) => state.articleReducers.articles);
@@ -15,7 +16,7 @@ const AppContent = () => {
     return tagList.indexOf(c) === index;
   });
   return (
-    <Layout.Content style={{ padding: "0 50px 100px 50px" }}>
+    <Content>
       <Row gutter={[32, 16]}>
         <Col span={18}>
           <NewFeeds />
@@ -24,7 +25,7 @@ const AppContent = () => {
           <PopularTags tagList={uniqueTags} />
         </Col>
       </Row>
-    </Layout.Content>
+    </Content>
   );
 };
 

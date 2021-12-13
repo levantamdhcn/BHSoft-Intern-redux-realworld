@@ -1,9 +1,10 @@
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Row, Col } from "antd";
 import { Article } from "../../stores/type";
 import { addArtilce, updateArticle } from "../../stores/actions/articleActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import moment from "moment";
+import { StyledButton } from "../styled/Button.styled";
 /* eslint-enable no-template-curly-in-string */
 
 interface NewPostProps {
@@ -124,9 +125,13 @@ const NewPost = ({ id }: NewPostProps) => {
             <Row gutter={[16, 16]}>
               <Col span={24} style={{ textAlign: "right" }}>
                 <Form.Item>
-                  <Button className="ant-btn btn-submit" htmlType="submit">
+                  <StyledButton
+                    className="ant-btn btn-submit"
+                    htmlType="submit"
+                    status="submit"
+                  >
                     Publish Article
-                  </Button>
+                  </StyledButton>
                 </Form.Item>
               </Col>
             </Row>

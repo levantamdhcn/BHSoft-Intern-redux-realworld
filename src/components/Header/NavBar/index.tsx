@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FormOutlined, SettingOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { Navbar, NavItem } from "../../styled/Navbar.styled";
 
 const NavBar = () => {
   const isSignedIn = useSelector(
@@ -14,38 +15,38 @@ const NavBar = () => {
   return (
     <div>
       {isSignedIn ? (
-        <ul className="navbar">
-          <li>
+        <Navbar>
+          <NavItem>
             <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
+          </NavItem>
+          <NavItem>
             <NavLink to="/editor">
               <FormOutlined />
               New Post
             </NavLink>
-          </li>
-          <li>
+          </NavItem>
+          <NavItem>
             <NavLink to="/setting">
               <SettingOutlined />
               Setting
             </NavLink>
-          </li>
-          <li>
+          </NavItem>
+          <NavItem>
             <NavLink to={`/profile/${username}`}>{username}</NavLink>
-          </li>
-        </ul>
+          </NavItem>
+        </Navbar>
       ) : (
-        <ul className="navbar">
-          <li>
+        <Navbar className="navbar">
+          <NavItem>
             <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
+          </NavItem>
+          <NavItem>
             <NavLink to="/signin">Sign in</NavLink>
-          </li>
-          <li>
+          </NavItem>
+          <NavItem>
             <NavLink to="/signup">Sign up</NavLink>
-          </li>
-        </ul>
+          </NavItem>
+        </Navbar>
       )}
     </div>
   );

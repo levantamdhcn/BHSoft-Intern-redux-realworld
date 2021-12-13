@@ -1,11 +1,12 @@
 import React from "react";
+import { Banner } from "../styled/Banner.styled";
 
 const AppBanner = () => {
   return (
-    <div className="banner">
-      <h1 className="logo-font">conduit</h1>
-      <p className="logo-slogan">A place to share your knowledge.</p>
-    </div>
+    <Banner>
+      <h1>conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </Banner>
   );
 };
 

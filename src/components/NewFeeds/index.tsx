@@ -1,12 +1,10 @@
-import { Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserInforById } from "../../localStorage";
 import { Article } from "../../stores/type";
 import { ArticlesList } from "../ArticlesList";
-
-const { TabPane } = Tabs;
-
+import { Tabs as TabsStyled } from "../styled/Tabs.styled";
+import { StyledTabPane } from "../styled/Tabs.styled";
 const NewFeeds = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
@@ -32,32 +30,30 @@ const NewFeeds = () => {
     (state: any) => state.authReducers.currentUser.authenticated
   );
   return (
-    <div>
-      <Tabs defaultActiveKey="1" className="newfeeds-holder">
-        {isLogged ? (
-          <TabPane tab="Your Feed" key="1">
-            {isLoading ? (
-              "Loading..."
-            ) : getPrivtaeFeed().length > 0 ? (
-              <ArticlesList articles={getPrivtaeFeed()} />
-            ) : (
-              "No articles are here... yet."
-            )}
-          </TabPane>
-        ) : (
-          ""
-        )}
-        <TabPane tab="Global Feed" key="2">
+    <TabsStyled defaultActiveKey="1">
+      {isLogged ? (
+        <StyledTabPane tab="Your Feed" key="1">
           {isLoading ? (
             "Loading..."
-          ) : articles.length > 0 ? (
-            <ArticlesList articles={articles} />
+          ) : getPrivtaeFeed().length > 0 ? (
+            <ArticlesList articles={getPrivtaeFeed()} />
           ) : (
             "No articles are here... yet."
           )}
-        </TabPane>
-      </Tabs>
-    </div>
+        </StyledTabPane>
+      ) : (
+        ""
+      )}
+      <StyledTabPane tab="Global Feed" key="2">
+        {isLoading ? (
+          "Loading..."
+        ) : articles.length > 0 ? (
+          <ArticlesList articles={articles} />
+        ) : (
+          "No articles are here... yet."
+        )}
+      </StyledTabPane>
+    </TabsStyled>
   );
 };
 

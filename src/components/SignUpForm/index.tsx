@@ -1,10 +1,18 @@
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Row, Col } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { authActions } from "../../stores";
+import {
+  FormItem,
+  FormMsgItem,
+  FormMsgList,
+  FormNavigate,
+  FormTitle,
+} from "../styled/Form.styled";
+import { StyledButton } from "../styled/Button.styled";
 
 const SignUp = () => {
   const [username, setUsername] = useState<string>("");
@@ -36,25 +44,23 @@ const SignUp = () => {
         <Col span={10} offset={4} style={{ textAlign: "center" }}>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <h1 className="form-title">Sign Up</h1>
+              <FormTitle>Sign Up</FormTitle>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <NavLink to="/signin" className="form-navigate">
-                Have an account?
-              </NavLink>
+              <FormNavigate to="/signin">Have an account?</FormNavigate>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24} offset={7}>
-              <ul className="error-msg-holder">
+              <FormMsgList>
                 {errorMsg
                   ? errorMsg.map((item: string) => (
-                      <li className="error-msg">{item}</li>
+                      <FormMsgItem>{item}</FormMsgItem>
                     ))
                   : ""}
-              </ul>
+              </FormMsgList>
             </Col>
           </Row>
         </Col>
@@ -67,12 +73,11 @@ const SignUp = () => {
             onFinish={onFinish}
             autoComplete="off"
           >
-            <Form.Item
+            <FormItem
               name="username"
               rules={[
                 { required: true, message: "Please input your username!" },
               ]}
-              className="form-input"
             >
               <Input
                 placeholder="Username"
@@ -80,12 +85,11 @@ const SignUp = () => {
                   setUsername(e.target.value);
                 }}
               />
-            </Form.Item>
+            </FormItem>
 
-            <Form.Item
+            <FormItem
               name="email"
               rules={[{ required: true, message: "Please input your email!" }]}
-              className="form-input"
             >
               <Input
                 placeholder="Email"
@@ -93,14 +97,13 @@ const SignUp = () => {
                   setEmail(e.target.value);
                 }}
               />
-            </Form.Item>
+            </FormItem>
 
-            <Form.Item
+            <FormItem
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
-              className="form-input"
             >
               <Input.Password
                 placeholder="Password"
@@ -108,17 +111,13 @@ const SignUp = () => {
                   setPassword(e.target.value);
                 }}
               />
-            </Form.Item>
+            </FormItem>
 
-            <Form.Item wrapperCol={{ offset: 9, span: 24 }}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="ant-btn btn-submit"
-              >
+            <FormItem wrapperCol={{ offset: 9, span: 24 }}>
+              <StyledButton status="submit" type="primary" htmlType="submit">
                 Sign Up
-              </Button>
-            </Form.Item>
+              </StyledButton>
+            </FormItem>
           </Form>
         </Col>
       </Row>

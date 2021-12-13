@@ -1,15 +1,14 @@
-import { Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserInforById } from "../../../localStorage";
 import { Article } from "../../../stores/type";
 import Post from "../../Post";
+import { PostList } from "../../styled/Post.styled";
+import { Tabs, StyledTabPane } from "../../styled/Tabs.styled";
 
 interface ArticlesToggleProps {
   userId: string;
 }
-
-const { TabPane } = Tabs;
 
 export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
   const [isLoading, setLoading] = useState(true);
@@ -28,8 +27,8 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
     image: userInfor[0].image,
   };
   return (
-    <Tabs defaultActiveKey="1" className="newfeeds-holder">
-      <TabPane tab="My Articles" key="1">
+    <Tabs defaultActiveKey="1">
+      <StyledTabPane tab="My Articles" key="1">
         {isLoading ? (
           "Loading..."
         ) : (
@@ -59,13 +58,13 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
               : ""}
           </ul>
         )}
-      </TabPane>
-      <TabPane tab="Favourited Articles" key="2">
+      </StyledTabPane>
+      <StyledTabPane tab="Favourited Articles" key="2">
         {isLoading ? (
           "Loading"
         ) : (
           <>
-            <ul className="post-list">
+            <PostList>
               {articles
                 .filter((item: Article) => item.favorited === true)
                 .map((item: Article, index: number) => {
@@ -93,10 +92,10 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
                     </li>
                   );
                 })}
-            </ul>
+            </PostList>
           </>
         )}
-      </TabPane>
+      </StyledTabPane>
     </Tabs>
   );
 };

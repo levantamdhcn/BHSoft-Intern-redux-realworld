@@ -16,7 +16,7 @@ const ProfilePage = () => {
         <Col span={24}>
           <UserProfile userInfor={userInfor} />
         </Col>
-        <Col span={24} className="profile-page">
+        <Col span={24}>
           <ArticlesToggle userId={userInfor.userId} />
         </Col>
       </Row>

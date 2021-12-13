@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import React from "react";
 import { SettingOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -7,6 +7,13 @@ import { User } from "../../../stores/type";
 import { addFollow } from "../../../stores/actions/accountsActions";
 import { getUserInforById } from "../../../localStorage";
 import { useHistory, useLocation } from "react-router";
+import {
+  UserImg,
+  Username,
+  StyledUserProfile,
+} from "../../styled/UserProfile.styled";
+import { StyledButton } from "../../styled/Button.styled";
+import { InnerContainer } from "../../styled/Container.styled";
 
 interface UserProfileProps {
   userInfor: User;
@@ -32,49 +39,51 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
   };
 
   return (
-    <div className="user-profile">
-      <Row gutter={[8, 8]} className="container small-container">
-        <Col span={24}>
-          <img src={userInfor.image} alt="user-img" className="user-img"></img>
-        </Col>
-        <Col span={24}>
-          <Row gutter={[12, 12]}>
-            <Col span={24} className="username">
-              {userInfor.username}
-            </Col>
-          </Row>
-          <Row gutter={[12, 12]}>
-            <Col span={24} className="bio">
-              {userInfor.bio}
-            </Col>
-          </Row>
-        </Col>
-        <Col span={24}>
-          <Row gutter={[12, 12]} style={{ textAlign: "right" }}>
-            <Col span={24}>
-              <Button
-                className="ant-btn btn-secondary"
-                onClick={
-                  currentUserId === userInfor.userId
-                    ? handleAction
-                    : handleFollow
-                }
-              >
-                {currentUserId === userInfor.userId ? (
-                  <SettingOutlined />
-                ) : (
-                  <PlusOutlined />
-                )}
-                {currentUserId === userInfor.userId
-                  ? "Edit Profile Settings"
-                  : currentUserInfor.following.includes(userInfor.userId)
-                  ? "Unfollow"
-                  : "Follow"}
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </div>
+    <StyledUserProfile>
+      <InnerContainer>
+        <Row gutter={[8, 8]}>
+          <Col span={24}>
+            <UserImg>
+              <img src={userInfor.image} alt="user-img"></img>
+            </UserImg>
+          </Col>
+          <Col span={24}>
+            <Row gutter={[12, 12]}>
+              <Col span={24}>
+                <Username>{userInfor.username}</Username>
+              </Col>
+            </Row>
+            <Row gutter={[12, 12]}>
+              <Col span={24}>{userInfor.bio}</Col>
+            </Row>
+          </Col>
+          <Col span={24}>
+            <Row gutter={[12, 12]} style={{ textAlign: "right" }}>
+              <Col span={24}>
+                <StyledButton
+                  status="secondary"
+                  onClick={
+                    currentUserId === userInfor.userId
+                      ? handleAction
+                      : handleFollow
+                  }
+                >
+                  {currentUserId === userInfor.userId ? (
+                    <SettingOutlined />
+                  ) : (
+                    <PlusOutlined />
+                  )}
+                  {currentUserId === userInfor.userId
+                    ? "Edit Profile Settings"
+                    : currentUserInfor.following.includes(userInfor.userId)
+                    ? "Unfollow"
+                    : "Follow"}
+                </StyledButton>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </InnerContainer>
+    </StyledUserProfile>
   );
 };

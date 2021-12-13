@@ -1,18 +1,21 @@
-import { Header } from "antd/lib/layout/layout";
+import { Header } from "../styled/Header.styled";
 import React from "react";
-import Logo from "./Logo";
+// import Logo from "./Logo";
 import NavBar from "./NavBar";
-
-const headerStyles = {
-  backgroundColor: "#fff",
-  display: "flex",
-  justifyContent: "space-between",
-};
+import { Logo } from "../styled/Logo.styled";
+import { useHistory } from "react-router-dom";
 
 const AppHeader = () => {
+  const history = useHistory();
   return (
-    <Header style={headerStyles}>
-      <Logo />
+    <Header>
+      <Logo
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        conduit
+      </Logo>
       <NavBar />
     </Header>
   );
