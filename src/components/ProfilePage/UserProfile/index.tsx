@@ -1,12 +1,10 @@
 import { Col, Row } from "antd";
 import React from "react";
 import { SettingOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import { User } from "../../../stores/type";
-import { addFollow } from "../../../stores/actions/accountsActions";
-import { getUserInforById } from "../../../localStorage";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import {
   UserImg,
   Username,
@@ -14,24 +12,29 @@ import {
 } from "../../styled/UserProfile.styled";
 import { StyledButton } from "../../styled/Button.styled";
 import { InnerContainer } from "../../styled/Container.styled";
+import { addFollow, removeFollow } from "../../../stores/actions/accountsActions";
 
 interface UserProfileProps {
   userInfor: User;
 }
 
 export const UserProfile = ({ userInfor }: UserProfileProps) => {
-  const currentUserId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
+  const currentUser = useSelector(
+    (state: any) => state.authReducers.user
   );
-  const currentUserInfor = getUserInforById(currentUserId)[0];
+  const { _id } = currentUser
   const history = useHistory();
-  const location = useLocation();
+  const dispatch = useDispatch()
 
   const handleFollow = () => {
-    addFollow(userInfor.userId, currentUserId);
-    setTimeout(() => {
-      history.push(location.pathname);
-    }, 200);
+    const isFollowing = currentUser.following.includes(userInfor._id)
+    console.log(isFollowing)
+    if(!isFollowing) {
+      dispatch(addFollow(userInfor._id,_id))
+    }
+    else{
+      dispatch(removeFollow(userInfor._id))
+    }
   };
 
   const handleAction = () => {
@@ -63,19 +66,19 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
                 <StyledButton
                   status="secondary"
                   onClick={
-                    currentUserId === userInfor.userId
+                    _id === userInfor._id
                       ? handleAction
                       : handleFollow
                   }
                 >
-                  {currentUserId === userInfor.userId ? (
+                  {_id === userInfor._id ? (
                     <SettingOutlined />
                   ) : (
                     <PlusOutlined />
                   )}
-                  {currentUserId === userInfor.userId
+                  {_id === userInfor._id
                     ? "Edit Profile Settings"
-                    : currentUserInfor.following.includes(userInfor.userId)
+                    : currentUser.following.includes(userInfor._id)
                     ? "Unfollow"
                     : "Follow"}
                 </StyledButton>

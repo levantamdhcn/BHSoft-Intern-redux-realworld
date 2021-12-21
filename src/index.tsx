@@ -8,6 +8,9 @@ import { Provider } from 'react-redux'
 import { stores } from './stores/stores';
 import { PersistGate } from 'redux-persist/integration/react';
 import persistor from './stores/stores'
+import axios from 'axios';
+
+axios.defaults.baseURL="http://localhost:1337"
 
 ReactDOM.render(
   <Provider store={stores}>

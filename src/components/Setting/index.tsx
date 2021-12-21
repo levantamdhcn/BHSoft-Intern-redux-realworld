@@ -2,7 +2,6 @@ import { Col, Form, Input, Row } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { getUserInforById } from "../../localStorage";
 import { updateAccount } from "../../stores/actions/accountsActions";
 import { signOutAction } from "../../stores/actions/authActions";
 import { FormItem } from "../styled/Form.styled";
@@ -11,26 +10,25 @@ import { StyledButton } from "../styled/Button.styled";
 const Setting = () => {
   const [password, setPassword] = useState<string>("");
 
+  const token = useSelector((state: any) => state.authReducers.user.refreshToken)
+
   const dispatch = useDispatch();
   const history = useHistory();
   const handleLogOut = () => {
-    dispatch(signOutAction);
+    dispatch(signOutAction(token, history));
   };
-  const userId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
+  const user = useSelector(
+    (state: any) => state.authReducers.user
   );
   const onFinish = (values: any) => {
     const valuesToUpdate = {
       ...values,
-      userId: userId,
+      _id: user._id,
       password,
     };
-    dispatch(updateAccount(valuesToUpdate));
-    setTimeout(() => {
-      history.push("/");
-    }, 500);
+    dispatch(updateAccount(valuesToUpdate, history));
   };
-  const { image, username, email, bio } = getUserInforById(userId)[0];
+  const { image, username, email, bio } = user;
   return (
     <div style={{ marginBottom: "100px" }}>
       <Form

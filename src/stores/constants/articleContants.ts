@@ -1,0 +1,10 @@
+export const GET_ARTICLE = "GET_ARTICLE";
+export const ADD_FAVORITE = "ADD_FAVORITE";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
+export const ADD_ARTICLE = "ADD_ARTICLE";
+export const DEL_ARTICLE = "DEL_ARTICLE";
+export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
+export const TOGGLE_FAVOURITE = "TOGGLE_FAVOURITE";
+export const ADD_COMMENT = "ADD_COMMENT";
+export const DEL_COMMENT = "DEL_COMMENT";

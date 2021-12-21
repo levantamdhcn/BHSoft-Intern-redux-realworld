@@ -4,21 +4,22 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { rootReducers } from "./reducers";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { createBlacklistFilter } from "redux-persist-transform-filter";
+import { createWhitelistFilter } from "redux-persist-transform-filter";
 
 const middleWare = [thunk];
 
-const saveSubsetBlacklistFilter = createBlacklistFilter("authReducers", [
-  "signInErrorMsg",
-  "signUpErrorMsg",
-  "isUpdateSuccess",
-  "username",
+const saveSubsetWhitelistFilter = createWhitelistFilter("authReducers", [
+  "token",
+  "refreshToken",
+  "user"
 ]);
+
 
 const persistConfig = {
   key: "root",
   storage,
-  transforms: [saveSubsetBlacklistFilter],
+  blacklist: ['articleReducers'],
+  transforms: [saveSubsetWhitelistFilter],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

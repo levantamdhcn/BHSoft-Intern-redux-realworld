@@ -1,34 +1,26 @@
-import React from "react";
+import { useSelector } from "react-redux";
+import { CommentState } from "../../../stores/type";
 import { Comment } from "./Comment";
 
 interface ArticleCommentsProps {
-  comments: [];
+  id: string,
 }
 
-interface CommentState {
-  author: {
-    image: string;
-    username: string;
-  };
-  body: string;
-  createdAt: string;
-  id: string;
-  updatedAt: string;
-}
-
-export const ArticleComments = ({ comments }: ArticleCommentsProps) => {
+export const ArticleComments = ({ id }: ArticleCommentsProps) => {
+  const comments = useSelector((state: any) => state.articleReducers.articles.filter((el: any) => el._id === id)[0].comments)
   return (
     <div>
       <ul style={{ listStyle: "none", paddingLeft: "0" }}>
         {comments?.length > 0
-          ? comments?.slice(0, 3).map((comment: CommentState) => (
-              <li key={comment.id}>
+          ? comments?.slice(0).reverse().map((comment: CommentState) => (
+              <li key={comment.commentId}>
                 <Comment
+                  articleId={id}
                   body={comment.body}
                   image={comment.author.image}
                   username={comment.author.username}
                   createdAt={comment.createdAt}
-                  id={comment.id}
+                  id={comment.commentId}
                 />
               </li>
             ))

@@ -1,89 +1,96 @@
-import {
-  SIGN_OUT,
-  SIGN_IN_SUCCESS,
-  SIGN_IN_FAILED,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_FAILED,
-  UPDATE_ACCOUNT,
-} from "../constant";
+import { 
+    SIGN_IN_FAILED,
+    SIGN_IN_SUCCESS,
+    SIGN_OUT,
+    SIGN_UP_FAILED,
+    SIGN_UP_SUCCESS, 
+    UPDATE_ACCOUNT_FAILED, 
+    UPDATE_ACCOUNT_SUCCESS 
+} 
+from "../constants/authConstants";
+import { ADD_FOLLOW, UN_FOLLOW } from "../constants/accountConstants";
+
 import { Auth, action } from "../type";
 
 const initialState: Auth = {
-  isSignInSuccess: false,
-  signInErrorMsg: [],
-  signUpErrorMsg: [],
-  currentUser: {
-    authenticated: false,
-    userId: "",
-    username: "",
-  },
+  isSignedIn: false,
+  token: "",
+  refreshToken: "",
+  user: {
+      following: [],
+      _id: "",
+      username: "",
+      email: "@gmail.com",
+      admin: false,
+      bio: "",
+      image: ""
+  }
 };
 
 const authReducers = (state = initialState, action: action) => {
   switch (action.type) {
     case SIGN_IN_SUCCESS:
+      const { token, refreshToken, user } = action.payload
       return {
         ...state,
-        isSigninSuccess: true,
-        currentUser: {
-          ...state.currentUser,
-          authenticated: action.payload.authenticated,
-          userId: action.payload.userId,
-          username: action.payload.username,
-        },
+        isSignedIn: true,
+        token,
+        refreshToken,
+        user 
       };
     case SIGN_IN_FAILED:
       return {
         ...state,
-        isSignInSuccess: false,
-        signInErrorMsg: action.payload.errorMsg,
-        currentUser: {
-          ...state.currentUser,
-          authenticate: false,
-          userId: undefined,
-        },
+        isSignedIn: false
       };
     case SIGN_UP_SUCCESS:
+      const newUser= action.payload
       return {
         ...state,
-        isSignInSuccess: true,
-        currentUser: {
-          ...state.currentUser,
-          authenticated: true,
-          userId: action.payload.userId,
-          username: action.payload.username,
-        },
+        isSignedIn: true,
+        isLoading: false,
+        user: newUser
       };
     case SIGN_UP_FAILED:
-      return {
-        ...state,
-        isSigninSuccess: false,
-        signUpErrorMsg: action.payload.errorMsg,
-        currentUser: {
-          ...state.currentUser,
-          authenticated: false,
-        },
-      };
+      return state
     case SIGN_OUT:
       return {
         ...state,
-        isSigninSuccess: false,
-        currentUser: {
-          ...state.currentUser,
-          authenticated: false,
-          userId: undefined,
-          username: undefined,
-        },
+        isSignedIn: false,
+        token: "",
+        refreshToken: "",
+        user: {}
       };
-    case UPDATE_ACCOUNT:
+    case ADD_FOLLOW: 
       return {
         ...state,
-        isUpdateSuccess: true,
-        currentUser: {
-          ...state.currentUser,
-          username: action.payload,
-        },
-      };
+        user: {
+          ...state.user,
+          following: state.user.following.concat(action.payload)
+        }
+      }
+      case UN_FOLLOW: 
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: state.user.following.filter(el => el !== action.payload)
+        }
+      }
+    case UPDATE_ACCOUNT_SUCCESS:
+      const { image, email, username, bio } = action.payload
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          image,
+          email,
+          username,
+          bio
+        }
+      }
+    case UPDATE_ACCOUNT_FAILED: 
+      return state
     default:
       return state;
   }

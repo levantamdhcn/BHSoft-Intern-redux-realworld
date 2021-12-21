@@ -1,30 +1,39 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Article } from "../../stores/type";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { getArticleById } from "../../axios/articlesApis";
 import { ArticleBanner } from "./ArticleBanner";
 import { ArticleContent } from "./ArticleContent";
 
-interface ArticlePageProps {
-  id: string;
-}
 
-export const ArticlePage = ({ id }: ArticlePageProps) => {
-  const articlesMeta = useSelector(
-    (state: any) => state.articleReducers.articles
-  );
-  const currentArticleId = useSelector(
-    (state: any) => state.articleReducers.currentArticle
-  );
-  const { comments, content, tagList } = articlesMeta.filter(
-    (article: Article) => article.articleId === id
-  )[0];
+export const ArticlePage = () => {
+  const [articleMeta, setArticleMeta] = useState({
+    _id: "",
+    title: "",
+    desc: "",
+    body: "",
+    comments: [],
+    tagList: [],
+    author: {
+      username: "",
+      bio: "",
+      image: "",
+    }
+  })
+
+  const id = useLocation().pathname.split("/")[2]
+  useEffect(() => {
+    getArticleById(id).then((response) => {
+      setArticleMeta(response.data.article)
+    })
+  },[id])
+
+  const { body, tagList } = articleMeta
   return (
     <div>
-      <ArticleBanner id={id} articlesMeta={articlesMeta} />
+      <ArticleBanner id={id}/>
       <ArticleContent
-        body={content}
-        comments={comments}
-        id={currentArticleId}
+        body={body}
+        id={id}
         tagList={tagList}
       />
     </div>

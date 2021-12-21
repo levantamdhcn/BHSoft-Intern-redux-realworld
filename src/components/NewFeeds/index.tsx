@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getUserInforById } from "../../localStorage";
 import { Article } from "../../stores/type";
 import { ArticlesList } from "../ArticlesList";
 import { Tabs as TabsStyled } from "../styled/Tabs.styled";
 import { StyledTabPane } from "../styled/Tabs.styled";
 const NewFeeds = () => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setTimeout(()=>{
+      setIsLoading(false)
+    },1500 )
   }, []);
+
   const articles = useSelector((state: any) => state.articleReducers.articles);
-  const currentUserId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
+  const user = useSelector(
+    (state: any) => state.authReducers.user
   );
-  const getPrivtaeFeed = () => {
-    if (currentUserId !== "") {
-      const followingUsers = getUserInforById(currentUserId)[0].following;
-      const privateFeed = articles.filter((article: Article) =>
-        followingUsers.includes(article.userId)
+  const isSignedIn = useSelector((state: any) => state.authReducers.isSignedIn)
+  const getPrivateFeed = () => {
+    if (user._id) {
+      const followingUsers = user.following;
+      const privateFeed = articles.filter((article: Article) => {
+        return followingUsers.includes(user._id)
+      }
       );
       return privateFeed;
     } else return [];
   };
-
-  const isLogged = useSelector(
-    (state: any) => state.authReducers.currentUser.authenticated
-  );
   return (
     <TabsStyled defaultActiveKey="1">
-      {isLogged ? (
+      {isSignedIn !== "" ? (
         <StyledTabPane tab="Your Feed" key="1">
           {isLoading ? (
             "Loading..."
-          ) : getPrivtaeFeed().length > 0 ? (
-            <ArticlesList articles={getPrivtaeFeed()} />
+          ) : getPrivateFeed().length > 0 ? (
+            <ArticlesList articles={getPrivateFeed()} />
           ) : (
             "No articles are here... yet."
           )}

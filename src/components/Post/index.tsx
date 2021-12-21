@@ -2,9 +2,8 @@ import { Card } from "antd";
 import { HeartFilled } from "@ant-design/icons";
 import React from "react";
 import { Post as PostType } from "../../stores/type";
-import { useDispatch } from "react-redux";
-import { goArticle } from "../../stores/actions/articleActions";
-import { toggleFavourite } from "../../stores/actions/articleActions";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavoriteAction } from "../../stores/actions/articleActions";
 import { Link } from "react-router-dom";
 import { StyledButton } from "../styled/Button.styled";
 import { PostItem, PostMeta } from "../styled/Post.styled";
@@ -25,14 +24,12 @@ const Post = (props: PostProps) => {
     id,
     favoritesCount,
     favorited,
-    slug,
   } = props.post;
   const dispatch = useDispatch();
-  const handleOnClick = () => {
-    dispatch(goArticle(id, slug));
-  };
+  const userId = useSelector((state: any) => state.authReducers.user._id)
+  const isFavorited = favorited.includes(userId)
   const handleToggleFavourite = () => {
-    dispatch(toggleFavourite(slug, id));
+    dispatch(toggleFavoriteAction(id,userId));
   };
   return (
     <div>
@@ -56,7 +53,7 @@ const Post = (props: PostProps) => {
             </div>
             <div className="post-react">
               <StyledButton
-                status={favorited ? "primary-active" : "primary"}
+                status={isFavorited ? "primary-active" : "primary"}
                 onClick={handleToggleFavourite}
               >
                 <HeartFilled />
@@ -65,9 +62,8 @@ const Post = (props: PostProps) => {
             </div>
           </PostMeta>
           <Link
-            to={id ? `/article/${id}` : `/post/${slug}`}
+            to={`/article/${id}`}
             className="post-preview"
-            onClick={() => handleOnClick()}
           >
             <h1>{title}</h1>
             <p>{description}</p>
@@ -88,4 +84,4 @@ const Post = (props: PostProps) => {
   );
 };
 
-export default Post;
+export default React.memo(Post);

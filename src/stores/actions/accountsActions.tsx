@@ -1,82 +1,37 @@
 import { Dispatch } from "react";
-import { getAllAccounts } from "../../localStorage";
 import { action, User } from "../type";
-import { UPDATE_ACCOUNT, UPDATE_ACCOUNT_FAIL } from "../constant";
+import { ADD_FOLLOW, UN_FOLLOW, UPDATE_ACCOUNT_FAIL } from "../constants/";
+import { follow, unFollow, updateUser } from "../../axios/userApis";
+import { History } from "history"
+import { UPDATE_ACCOUNT_SUCCESS } from "../constants/authConstants";
+export const updateAccount = (data: User, history: History) => (dispatch: Dispatch<action>) => {
+  updateUser(data)
+  .then((response) => {
+    dispatch({
+      type: UPDATE_ACCOUNT_SUCCESS,
+      payload: data
+    })
+    history.push(`/profile/${data.username}`)
+  })
+  .catch((error) => {
+    dispatch({
+      type: UPDATE_ACCOUNT_FAIL
+    })
+  })
+}
+export const addFollow = (toId: string, fromId: string) => (dispatch: Dispatch<action>) => {
+    follow(toId,fromId).then((response) => {
+    dispatch({
+      type: ADD_FOLLOW,
+      payload: response.data.id
+    })
+  })
+};
 
-export const updateAccount =
-  ({ userId, image, username, email, bio, password }: User) =>
-  (dispatch: Dispatch<action>) => {
-    const accounts = getAllAccounts();
-    const checkDuplicate = () => {
-      let isDuplicate = false;
-      accounts
-        .filter((account: User) => account.userId !== userId)
-        .forEach((account: User) => {
-          if (account.email === email || account.username === username) {
-            isDuplicate = true;
-          }
-        });
-      return isDuplicate;
-    };
-    if (checkDuplicate() === false) {
-      if (password !== "") {
-        const newAccont = accounts.map((account: User) => {
-          if (account.userId === userId) {
-            return {
-              ...account,
-              image,
-              email,
-              username,
-              bio,
-              password,
-            };
-          } else return account;
-        });
-        localStorage.setItem("accounts", JSON.stringify(newAccont));
-        dispatch({
-          type: UPDATE_ACCOUNT,
-          payload: username,
-        });
-      } else {
-        const newAccont = accounts.map((account: User) => {
-          if (account.userId === userId) {
-            return {
-              ...account,
-              image,
-              email,
-              username,
-              bio,
-            };
-          } else return account;
-        });
-        localStorage.setItem("accounts", JSON.stringify(newAccont));
-        dispatch({
-          type: UPDATE_ACCOUNT,
-          payload: username,
-        });
-      }
-    } else {
-      dispatch({
-        type: UPDATE_ACCOUNT_FAIL,
-      });
-    }
-  };
-export const addFollow = (toId: string, fromId: string) => {
-  const accounts = getAllAccounts();
-  const newAccont = accounts.map((account: User) => {
-    if (account.userId === fromId) {
-      if (!account.following.includes(toId)) {
-        return {
-          ...account,
-          following: account.following.concat([toId]),
-        };
-      } else
-        return {
-          ...account,
-          following: account.following.filter((item: string) => item !== toId),
-        };
-    }
-    return account;
-  });
-  localStorage.setItem("accounts", JSON.stringify(newAccont));
+export const removeFollow = (id: string) => (dispatch: Dispatch<action>) => {
+    unFollow(id)
+    dispatch({
+      type: UN_FOLLOW,
+      payload: id
+    })
 };

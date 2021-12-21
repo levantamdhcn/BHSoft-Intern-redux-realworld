@@ -1,16 +1,16 @@
-import {
-  ADD_ARTICLE,
-  ADD_COMMENT,
-  DEL_ARTICLE,
-  DEL_COMMENT,
-  GO_ARTICLE,
-  TOGGLE_FAVOURITE,
-  UPDATE_ARTICLE,
-} from "../constant";
+import { 
+  ADD_ARTICLE, 
+  ADD_COMMENT, 
+  DEL_ARTICLE, 
+  DEL_COMMENT, 
+  GET_ARTICLE, 
+  TOGGLE_FAVORITE, 
+  UPDATE_ARTICLE 
+} from "../constants/articleContants";
 import { ArticleState, ArticleAction, Article } from "../type";
 
 const initialState: ArticleState = {
-  currentArticle: "",
+  isLoading: true,
   articles: [],
 };
 
@@ -19,20 +19,21 @@ const articleReducers = (
   action: ArticleAction
 ) => {
   switch (action.type) {
+    case GET_ARTICLE: 
+    return {
+        ...state,
+        isLoading: false,
+        articles: action.payload,
+      };
     case ADD_ARTICLE:
       return {
         ...state,
         currentArticle: action.payload.currentArticle,
-        articles: state.articles.concat(action.payload.article),
-      };
-    case GO_ARTICLE:
-      return {
-        ...state,
-        currentArticle: action.payload.currentArticle,
+        articles: state.articles.concat(action.payload),
       };
     case UPDATE_ARTICLE:
       const articlesAfterUpdate = state.articles.map((item: Article) => {
-        if (item.articleId === state.currentArticle) {
+        if (item._id === action.payload.id) {
           const { title, desc, content, tag } = action.payload;
           return {
             ...item,
@@ -50,15 +51,15 @@ const articleReducers = (
       };
     case DEL_ARTICLE:
       const articlesAfterDel = state.articles.filter(
-        (item: Article) => item.articleId !== action.payload
+        (item: Article) => item._id !== action.payload
       );
       return { ...state, articles: articlesAfterDel };
     case ADD_COMMENT:
       const articlesAfterAddCmt = state.articles.map((article: Article) => {
-        if (article.articleId === action.payload.id) {
+        if (article._id === action.payload.id) {
           return {
             ...article,
-            comments: [action.payload.data].concat(article.comments),
+            comments: article.comments.concat(action.payload.data),
           };
         }
         return article;
@@ -69,30 +70,30 @@ const articleReducers = (
       };
     case DEL_COMMENT:
       const articleAfterDelCmt = state.articles.map((item: Article) => {
-        if (item.articleId === state.currentArticle) {
+        if (item._id === action.payload.articleId) {
           return {
             ...item,
             comments: item.comments.filter(
-              (comment) => comment.id !== action.payload
+              (comment) => comment.commentId !== action.payload.commentId
             ),
           };
         }
         return item;
       });
+      console.log('a',action.payload)
       return {
         ...state,
         articles: articleAfterDelCmt,
       };
-    case TOGGLE_FAVOURITE:
-      console.log(state.articles);
+    case TOGGLE_FAVORITE:
       const articlesNeedToggle = state.articles.map((item: Article) => {
-        if (item.articleId === action.payload.id) {
+        if (item._id === action.payload.articleId) {
+          console.log(action.payload.articleId)
+          const isFavorited = item.favorited.includes(action.payload.userId)
           return {
             ...item,
-            favoritesCount: item.favorited
-              ? item.favoritesCount - 1
-              : item.favoritesCount + 1,
-            favorited: !item.favorited,
+            favoritesCount: isFavorited ? item.favoritesCount - 1 : item.favoritesCount + 1,
+            favorited: isFavorited ? item.favorited.filter(el => el !== action.payload.userId) : item.favorited.concat(action.payload.userId)
           };
         }
         return item;

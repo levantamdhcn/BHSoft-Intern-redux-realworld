@@ -1,0 +1,5 @@
+export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
+export const ADD_FOLLOW = "ADD_FOLLOW";
+export const UN_FOLLOW = "UN_FOLLOW";
+export const UPDATE_ACCOUNT_FAIL = "UPDATE_ACCOUNT_FAIL";
+export const RESET_UPDATE = "RESET_UPDATE";

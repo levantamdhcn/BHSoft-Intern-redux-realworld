@@ -3,8 +3,6 @@ import { Content } from "antd/lib/layout/layout";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { authActions } from "../../stores";
 import {
   FormItem,
   FormMsgItem,
@@ -13,6 +11,7 @@ import {
   FormTitle,
 } from "../styled/Form.styled";
 import { StyledButton } from "../styled/Button.styled";
+import { signUpAction } from "../../stores/actions/authActions";
 
 const SignUp = () => {
   const [username, setUsername] = useState<string>("");
@@ -20,11 +19,6 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("");
 
   const dispatch = useDispatch();
-
-  const { signUpAction } = bindActionCreators(authActions, dispatch);
-  const isSuccess = useSelector(
-    (state: any) => state.authReducers.isSignUpSuccess
-  );
   const errorMsg = useSelector(
     (state: any) => state.authReducers.signUpErrorMsg
   );
@@ -32,10 +26,7 @@ const SignUp = () => {
   const history = useHistory();
 
   const onFinish = () => {
-    signUpAction(email, username, password);
-    if (isSuccess) {
-      history.push("/");
-    }
+    dispatch(signUpAction(email, username, password, history));
   };
 
   return (

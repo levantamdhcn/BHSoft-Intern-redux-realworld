@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import { Navbar, NavItem } from "../../styled/Navbar.styled";
 
 const NavBar = () => {
-  const isSignedIn = useSelector(
-    (state: any) => state.authReducers.isSigninSuccess
+  const token = useSelector(
+    (state: any) => state.authReducers.token
   );
-  const username = useSelector(
-    (state: any) => state.authReducers.currentUser.username
-  );
+  const user = useSelector(
+    (state: any) => state.authReducers.user
+  ); 
 
   return (
     <div>
-      {isSignedIn ? (
+      {token !== "" ? (
         <Navbar>
           <NavItem>
             <NavLink to="/">Home</NavLink>
@@ -32,7 +32,7 @@ const NavBar = () => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to={`/profile/${username}`}>{username}</NavLink>
+            <NavLink to={`/profile/${user.username}`}>{user.username}</NavLink>
           </NavItem>
         </Navbar>
       ) : (

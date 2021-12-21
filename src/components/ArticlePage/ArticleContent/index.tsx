@@ -7,12 +7,11 @@ import { CommentForm } from "../ArticleComments/CommentForm";
 
 interface Props {
   body?: string;
-  tagList?: [] | string;
-  comments: [];
+  tagList?: Array<string>;
   id: string;
 }
 
-export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
+export const ArticleContent = ({ body, tagList, id }: Props) => {
   return (
     <Container>
       <Row gutter={[16, 16]}>
@@ -36,7 +35,7 @@ export const ArticleContent = ({ body, tagList, comments, id }: Props) => {
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <CommentForm id={id} />
-              <ArticleComments comments={comments} />
+              <ArticleComments id={id}/>
             </Col>
           </Row>
         </Col>

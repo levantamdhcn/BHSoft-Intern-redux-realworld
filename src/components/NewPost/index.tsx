@@ -1,65 +1,57 @@
 import { Form, Input, Row, Col } from "antd";
 import { Article } from "../../stores/type";
-import { addArtilce, updateArticle } from "../../stores/actions/articleActions";
+import { addArtilce, updateArticleAction } from "../../stores/actions/articleActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import moment from "moment";
+import { useHistory, useLocation } from "react-router";
 import { StyledButton } from "../styled/Button.styled";
+import { useEffect } from "react";
+import { getArticleById } from "../../axios/articlesApis";
 /* eslint-enable no-template-curly-in-string */
 
-interface NewPostProps {
-  id?: string;
-}
-
-const NewPost = ({ id }: NewPostProps) => {
-  const dispatch = useDispatch();
+const NewPost = () => {
+  const [form] = Form.useForm();
+  const location = useLocation()
+  const id = location.pathname.split("/")[2]
+  useEffect(() => {
+    getArticleById(id).then((response) => {
+      const {title, desc, body,tagList} = response.data.article
+      form.setFieldsValue({
+        title,
+        desc,
+        body,
+        tagList
+      })
+    })
+  },[id,form])
   const history = useHistory();
-  const userId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
+  const user = useSelector(
+    (state: any) => state.authReducers.user
   );
-  const articleInfor = useSelector((state: any) =>
-    state.articleReducers.articles.filter(
-      (item: Article) => item.articleId === id
-    )
-  );
-
-  if (id) {
-    var { title, desc, content, tag } = articleInfor[0];
-  } // when the id is availale that user is updating post, and only get the infor when updating
-
+  const dispatch = useDispatch();
   const onFinish = (values: Article) => {
-    if (!id) {
-      const createdAt = moment().format("MMM Do YY");
+    if (id === undefined) {
+      console.log("a")
       const newData = {
         ...values,
-        userId: userId,
-        favourtied: false,
+        author: {
+          username: user.username,
+          bio: user.bio,
+          image: user.image
+        },
+        favourtied: [],
         favoritesCount: 0,
-        createdAt,
-        articleId: Math.random().toString(36).substr(2, 9),
       };
-      dispatch(addArtilce(newData));
-
-      setTimeout(() => {
-        history.push(`/article/${newData.articleId}`);
-      }, 200);
+      dispatch(addArtilce(newData,history));
     } else {
-      dispatch(updateArticle(values));
-      setTimeout(() => {
-        history.push(`/article/${articleInfor[0].articleId}`);
-      }, 200);
+
+      dispatch(updateArticleAction(id,values,history));
     }
   };
   return (
     <div>
       <Form
+        form={form}
         onFinish={onFinish}
-        initialValues={{
-          title: id ? title : "",
-          desc: id ? desc : "",
-          content: id ? content : "",
-          tag: id ? tag : "",
-        }}
       >
         <Row gutter={[16, 16]}>
           <Col span={8} offset={7}>
@@ -100,7 +92,7 @@ const NewPost = ({ id }: NewPostProps) => {
             <Row gutter={[16, 16]}>
               <Col span={24}>
                 <Form.Item
-                  name="content"
+                  name="body"
                   rules={[
                     {
                       required: true,

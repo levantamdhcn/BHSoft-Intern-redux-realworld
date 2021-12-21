@@ -1,15 +1,27 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { getUserInforByUsername } from "../../localStorage";
+import { getUserByUsername } from "../../axios/userApis";
 import { ArticlesToggle } from "./ArticleToggle";
 import { UserProfile } from "./UserProfile";
 
 const ProfilePage = () => {
+  const [userInfor, setUserInfor] = useState({
+    _id: "",
+    username: "",
+    password: "",
+    email: "",
+    bio: "",
+    image: "",
+    following: []
+  })
   const location = useLocation();
   const username = location.pathname.split("/")[2];
-  const userInfor = getUserInforByUsername(username)[0];
-
+  useEffect(() => {
+    getUserByUsername(username).then((response) => {
+      setUserInfor(response.data.user[0])
+    })
+  },[username])
   return (
     <div style={{ paddingBottom: "100px" }}>
       <Row>
@@ -17,7 +29,7 @@ const ProfilePage = () => {
           <UserProfile userInfor={userInfor} />
         </Col>
         <Col span={24}>
-          <ArticlesToggle userId={userInfor.userId} />
+          <ArticlesToggle userId={userInfor._id} />
         </Col>
       </Row>
     </div>

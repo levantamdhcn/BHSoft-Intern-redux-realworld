@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getUserInforById } from "../../../localStorage";
+import { getUserById } from "../../../axios/userApis";
 import { Article } from "../../../stores/type";
 import Post from "../../Post";
 import { PostList } from "../../styled/Post.styled";
@@ -11,20 +11,28 @@ interface ArticlesToggleProps {
 }
 
 export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
-  const [isLoading, setLoading] = useState(true);
+  const isLoading = false
+  const [userInfor, setUserInfor] = useState({
+    userId: "",
+    username: "",
+    password: "",
+    email: "",
+    bio: "",
+    image: "",
+    following: []
+  });
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
-  const userInfor = getUserInforById(userId);
+    getUserById(userId).then((response) => {
+      setUserInfor(response.data)
+    })
+  }, [userId]);
   const articles = useSelector((state: any) => state.articleReducers.articles);
   const myArticles = articles.filter(
-    (article: Article) => article.userId === userId
+    (article: Article) => article.author.username === userInfor.username
   );
   const author = {
-    username: userInfor[0].username,
-    image: userInfor[0].image,
+    username: userInfor?.username,
+    image: userInfor?.image,
   };
   return (
     <Tabs defaultActiveKey="1">
@@ -41,7 +49,7 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
                     tagList: item.tagList,
                     createdAt: item.createdAt,
                     description: item.desc,
-                    id: item.articleId,
+                    id: item._id,
                     favoritesCount: item.favoritesCount,
                     favorited: item.favorited,
                     comments: [],
@@ -59,26 +67,22 @@ export const ArticlesToggle = ({ userId }: ArticlesToggleProps) => {
           </ul>
         )}
       </StyledTabPane>
-      <StyledTabPane tab="Favourited Articles" key="2">
+      <StyledTabPane tab="Favorited Articles" key="2">
         {isLoading ? (
           "Loading"
         ) : (
           <>
             <PostList>
               {articles
-                .filter((item: Article) => item.favorited === true)
+                .filter((item: Article) => item.favorited.includes(userId))
                 .map((item: Article, index: number) => {
-                  const author = {
-                    username: getUserInforById(item.userId)[0].username,
-                    image: getUserInforById(item.userId)[0].image,
-                  };
                   const postInfor = {
                     title: item.title,
-                    author: author,
+                    author: item.author,
                     tagList: item.tagList,
                     createdAt: item.createdAt,
                     description: item.desc,
-                    id: item.articleId,
+                    id: item._id,
                     favoritesCount: item.favoritesCount,
                     favorited: item.favorited,
                     comments: [],

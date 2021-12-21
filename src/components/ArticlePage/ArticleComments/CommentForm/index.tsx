@@ -3,7 +3,7 @@ import moment from "moment";
 import TextArea from "rc-textarea";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInforById } from "../../../../localStorage";
+import { useHistory } from "react-router-dom";
 import { addComment } from "../../../../stores/actions/articleActions";
 import {
   CommentFooter,
@@ -18,24 +18,22 @@ interface CommentFormProps {
 export const CommentForm = ({ id }: CommentFormProps) => {
   const [body, setBody] = useState<string>("");
   const dispatch = useDispatch();
+  const history = useHistory()
 
-  const currentUserId = useSelector(
-    (state: any) => state.authReducers.currentUser.userId
+  const userInfor = useSelector(
+    (state: any) => state.authReducers.user
   );
-
-  var userInfor = getUserInforById(currentUserId);
   const data = {
     author: {
-      username: userInfor[0].username,
-      image: userInfor[0].image,
+      username: userInfor.username,
+      image: userInfor.image,
+      bio: userInfor.bio
     },
     body: body,
-    id: Math.random().toString(36).substr(2, 9),
     createdAt: moment().format("MMM Do YY"),
   };
-
   const handleAddComment = () => {
-    dispatch(addComment(id, data));
+    dispatch(addComment(id, data,history));
   };
   return (
     <Row gutter={[16, 16]}>
