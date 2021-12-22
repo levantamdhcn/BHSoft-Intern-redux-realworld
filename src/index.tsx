@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import persistor from './stores/stores'
 import axios from 'axios';
 
-axios.defaults.baseURL="http://localhost:1337"
+axios.defaults.baseURL="https://conduit-mern-app.herokuapp.com/"
 
 ReactDOM.render(
   <Provider store={stores}>
