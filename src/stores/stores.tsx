@@ -19,7 +19,7 @@ const persistConfig = {
   key: "root",
   storage,
   blacklist: ['articleReducers'],
-  transforms: [saveSubsetWhitelistFilter],
+  // transforms: [saveSubsetWhitelistFilter],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
