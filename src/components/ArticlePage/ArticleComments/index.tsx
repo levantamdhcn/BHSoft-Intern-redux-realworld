@@ -7,7 +7,7 @@ interface ArticleCommentsProps {
 }
 
 export const ArticleComments = ({ id }: ArticleCommentsProps) => {
-  const comments = useSelector((state: any) => state.articleReducers.articles.filter((el: any) => el._id === id)[0].comments)
+  const comments = useSelector((state: any) => state.articleReducers.articles.filter((el: any) => el._id === id)[0]?.comments)
   return (
     <div>
       <ul style={{ listStyle: "none", paddingLeft: "0" }}>
