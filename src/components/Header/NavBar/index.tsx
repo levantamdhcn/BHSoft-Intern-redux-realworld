@@ -14,7 +14,7 @@ const NavBar = () => {
 
   return (
     <div>
-      {token !== "" || !token  ? (
+      {token && token !== "" ? (
         <Navbar>
           <NavItem>
             <NavLink to="/">Home</NavLink>
