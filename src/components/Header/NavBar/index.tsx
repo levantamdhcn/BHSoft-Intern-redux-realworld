@@ -32,7 +32,7 @@ const NavBar = () => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to={`/profile/${user.username}`}>{user.username}</NavLink>
+            <NavLink to={`/profile/${user ? user.username : ""}`}>{user ? user.username : ""}</NavLink>
           </NavItem>
         </Navbar>
       ) : (
