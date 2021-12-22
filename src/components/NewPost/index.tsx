@@ -30,7 +30,6 @@ const NewPost = () => {
   const dispatch = useDispatch();
   const onFinish = (values: Article) => {
     if (id === undefined) {
-      console.log("a")
       const newData = {
         ...values,
         author: {

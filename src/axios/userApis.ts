@@ -14,9 +14,9 @@ export const getUserById = (id: string) => axios.get(`/${route}/get/id/${id}`);
 export const getUserByUsername = (username: string) =>
   axios.get(`/${route}/get/username/${username}`);
 
-export const follow = (toId: string, fromId: string) =>
-  axios.put(`/${route}/${toId}/follow`, {
-    id: fromId,
+export const follow = (toUsername: string, fromUsername: string) =>
+  axios.put(`/${route}/${toUsername}/follow`, {
+    username: fromUsername,
   });
 export const updateUser = (data: User) =>
   axios.put(`/${route}/${data._id}`, {
@@ -28,6 +28,8 @@ export const updateUser = (data: User) =>
     password: data.password,
   });
 
-export const unFollow = (id: string) => {
-  axios.delete(`/${route}/${id}/follow`);
+export const unFollow = (toUsername: string, fromUsername: string) => {
+  axios.put(`/${route}/${toUsername}/unfollow`, {
+    username: fromUsername,
+  });
 };

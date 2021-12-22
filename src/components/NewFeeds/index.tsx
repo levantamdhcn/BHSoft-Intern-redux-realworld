@@ -21,7 +21,7 @@ const NewFeeds = () => {
     if (user && user._id) {
       const followingUsers = user.following;
       const privateFeed = articles.filter((article: Article) => {
-        return followingUsers.includes(user._id)
+        return followingUsers.includes(article.author.username)
       }
       );
       return privateFeed;

@@ -12,13 +12,16 @@ const PopularTags = ({ tagList }: PopularTagsProps) => {
       setLoading(false);
     }, 1500);
   }, []);
+  let uniqueTagList = tagList.filter((element, index) => {
+    return tagList.indexOf(element) === index;
+  });
   return (
     <TagsHolder>
       <h1>Popular Tags</h1>
       <TagList>
         {isLoading
           ? "Loading..."
-          : tagList.map((item: string) => {
+          : uniqueTagList?.map((item: string) => {
               return <TagItem key={item}>{item}</TagItem>;
             })}
       </TagList>

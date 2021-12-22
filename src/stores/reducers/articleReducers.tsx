@@ -28,7 +28,6 @@ const articleReducers = (
     case ADD_ARTICLE:
       return {
         ...state,
-        currentArticle: action.payload.currentArticle,
         articles: state.articles.concat(action.payload),
       };
     case UPDATE_ARTICLE:
@@ -80,7 +79,6 @@ const articleReducers = (
         }
         return item;
       });
-      console.log('a',action.payload)
       return {
         ...state,
         articles: articleAfterDelCmt,
@@ -88,7 +86,6 @@ const articleReducers = (
     case TOGGLE_FAVORITE:
       const articlesNeedToggle = state.articles.map((item: Article) => {
         if (item._id === action.payload.articleId) {
-          console.log(action.payload.articleId)
           const isFavorited = item.favorited.includes(action.payload.userId)
           return {
             ...item,

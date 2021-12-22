@@ -23,15 +23,15 @@ export const addFollow = (toId: string, fromId: string) => (dispatch: Dispatch<a
     follow(toId,fromId).then((response) => {
     dispatch({
       type: ADD_FOLLOW,
-      payload: response.data.id
+      payload: toId
     })
   })
 };
 
-export const removeFollow = (id: string) => (dispatch: Dispatch<action>) => {
-    unFollow(id)
+export const removeFollow = (toUsername: string, fromUsername: string) => (dispatch: Dispatch<action>) => {
+    unFollow(toUsername, fromUsername)
     dispatch({
       type: UN_FOLLOW,
-      payload: id
+      payload: toUsername
     })
 };

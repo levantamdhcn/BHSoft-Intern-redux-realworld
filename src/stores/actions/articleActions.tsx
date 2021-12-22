@@ -52,10 +52,10 @@ export const updateArticleAction =
   };
 export const deleteArticleAction =
   (articleId: string, history: History) => async (dispatch: Dispatch<ArticleAction>) => {
-    const response = await deleteArticle(articleId)
+    await deleteArticle(articleId)
     dispatch({
       type: DEL_ARTICLE,
-      payload: response.data,
+      payload: articleId,
     });
     history.push("/")
   };

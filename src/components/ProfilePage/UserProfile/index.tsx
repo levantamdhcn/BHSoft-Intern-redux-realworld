@@ -22,22 +22,22 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
   const currentUser = useSelector(
     (state: any) => state.authReducers.user
   );
-  const { _id } = currentUser
+  const { _id,username } = currentUser
   const history = useHistory();
   const dispatch = useDispatch()
-  const isSignedIn = useSelector((state: any) => state.authReducers.isSignedIn)
+  const isSignedIn = useSelector((state: any) => state.authReducers.token)
+
   const handleFollow = () => {
-    const isFollowing = currentUser.following.includes(userInfor._id)
-    if(isSignedIn) {
+    const isFollowing = currentUser.following.includes(userInfor.username)
+    if(isSignedIn !== "") {
       if(!isFollowing) {
-            dispatch(addFollow(userInfor._id,_id))
+            dispatch(addFollow(userInfor.username,username))
           }
           else{
-            dispatch(removeFollow(userInfor._id))
+            dispatch(removeFollow(userInfor.username,username))
           }
         };
     }
-    
 
   const handleAction = () => {
     history.push("/setting");
@@ -80,7 +80,7 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
                   )}
                   {_id === userInfor._id
                     ? "Edit Profile Settings"
-                    : currentUser.following.includes(userInfor._id)
+                    : currentUser.following.includes(userInfor.username)
                     ? "Unfollow"
                     : "Follow"}
                 </StyledButton>

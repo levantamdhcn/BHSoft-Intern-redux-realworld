@@ -10,7 +10,7 @@ interface Props {
 export const ArticlesList = ({ articles }: Props) => {
   return (
     <PostList className="post-list">
-      {articles.map((item: Article, index: number) => {
+      {articles ? articles.map((item: Article, index: number) => {
         const post = {
           title: item.title,
           author: item.author,
@@ -24,10 +24,10 @@ export const ArticlesList = ({ articles }: Props) => {
         };
         return (
           <PostItem key={index}>
-            <Post post={post} linkToProfile={`/profile/${item.author.username}`} />
+            <Post post={post} linkToProfile={`/profile/${item.author ? item.author.username : ""}`} />
           </PostItem>
         );
-      })}
+      }) : ""}
     </PostList>
   );
 };
