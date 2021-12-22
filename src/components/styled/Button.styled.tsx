@@ -66,10 +66,10 @@ export const StyledButton = styledComponents((props: ButtonProps) => (
       ? "10px 24px"
       : "10px 24px"};
   &:focus {${(props) =>
-    props.status === "primary-active"
+    props.status === "primary"
       ? `
-        color: #fff !important;
-        background-color: var(--primary-color);
+        color: var(--primary-color) !important;
+        background-color: #fff;
         border: 1px solid var(--primary-color);
       `
       : props.status === "logout"

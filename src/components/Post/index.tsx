@@ -28,9 +28,9 @@ const Post = (props: PostProps) => {
   const dispatch = useDispatch();
   const userId = useSelector((state: any) => state.authReducers.user._id)
   const isFavorited = favorited.includes(userId)
-  const isSignedIn = useSelector((state: any) => state.authReducers.isSignedIn)
+  const isSignedIn = useSelector((state: any) => state.authReducers.token)
   const handleToggleFavourite = () => {
-    if(isSignedIn){
+    if(isSignedIn !== ""){
       dispatch(toggleFavoriteAction(id,userId));
     }
   };
