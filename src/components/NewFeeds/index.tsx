@@ -16,7 +16,7 @@ const NewFeeds = () => {
   const user = useSelector(
     (state: any) => state.authReducers.user
   );
-  const isSignedIn = useSelector((state: any) => state.authReducers.isSignedIn)
+  const isSignedIn = useSelector((state: any) => state.authReducers.token)
   const getPrivateFeed = () => {
     if (user._id) {
       const followingUsers = user.following;
@@ -29,7 +29,7 @@ const NewFeeds = () => {
   };
   return (
     <TabsStyled defaultActiveKey="1">
-      {isSignedIn ? (
+      {isSignedIn !== ""? (
         <StyledTabPane tab="Your Feed" key="1">
           {isLoading ? (
             "Loading..."
