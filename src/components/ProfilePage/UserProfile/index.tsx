@@ -25,17 +25,19 @@ export const UserProfile = ({ userInfor }: UserProfileProps) => {
   const { _id } = currentUser
   const history = useHistory();
   const dispatch = useDispatch()
-
+  const isSignedIn = useSelector((state: any) => state.authReducers.isSignedIn)
   const handleFollow = () => {
     const isFollowing = currentUser.following.includes(userInfor._id)
-    console.log(isFollowing)
-    if(!isFollowing) {
-      dispatch(addFollow(userInfor._id,_id))
+    if(isSignedIn) {
+      if(!isFollowing) {
+            dispatch(addFollow(userInfor._id,_id))
+          }
+          else{
+            dispatch(removeFollow(userInfor._id))
+          }
+        };
     }
-    else{
-      dispatch(removeFollow(userInfor._id))
-    }
-  };
+    
 
   const handleAction = () => {
     history.push("/setting");

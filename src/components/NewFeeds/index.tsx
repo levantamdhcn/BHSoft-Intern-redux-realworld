@@ -29,7 +29,7 @@ const NewFeeds = () => {
   };
   return (
     <TabsStyled defaultActiveKey="1">
-      {isSignedIn !== "" ? (
+      {isSignedIn ? (
         <StyledTabPane tab="Your Feed" key="1">
           {isLoading ? (
             "Loading..."
