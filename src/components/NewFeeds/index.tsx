@@ -18,7 +18,7 @@ const NewFeeds = () => {
   );
   const isSignedIn = useSelector((state: any) => state.authReducers.token)
   const getPrivateFeed = () => {
-    if (user._id) {
+    if (user && user._id) {
       const followingUsers = user.following;
       const privateFeed = articles.filter((article: Article) => {
         return followingUsers.includes(user._id)
