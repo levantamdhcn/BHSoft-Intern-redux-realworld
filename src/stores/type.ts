@@ -105,3 +105,14 @@ export interface AppState {
   authReducers?: any;
   articleReducers?: ArticleState;
 }
+
+export interface route {
+  exact?: boolean;
+  path?: string;
+  guard?: any;
+  layout?: any;
+  component?: any;
+  routes?: routes;
+}
+
+export interface routes extends Array<route> {}

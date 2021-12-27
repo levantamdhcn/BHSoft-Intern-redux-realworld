@@ -5,7 +5,7 @@ import { ArticleBanner } from "./ArticleBanner";
 import { ArticleContent } from "./ArticleContent";
 
 
-export const ArticlePage = () => {
+const ArticlePage = () => {
   const [articleMeta, setArticleMeta] = useState({
     _id: "",
     title: "",
@@ -39,3 +39,5 @@ export const ArticlePage = () => {
     </div>
   );
 };
+
+export default ArticlePage

@@ -32,4 +32,7 @@ export const StyledTabPane: React.FunctionComponent<TabPaneProps> = styled(
   TabPane
 )`
   margin: 0 !important;
+  .ant-card-body {
+    padding: 0px;
+  }
 `;
