@@ -7,10 +7,10 @@ import {
     UPDATE_ACCOUNT_FAILED, 
     UPDATE_ACCOUNT_SUCCESS 
 } 
-from "../constants/authConstants";
-import { ADD_FOLLOW, UN_FOLLOW } from "../constants/accountConstants";
+from "../../constants/authConstants";
+import { ADD_FOLLOW, UN_FOLLOW } from "../../constants/accountConstants";
 
-import { Auth, action } from "../type";
+import { Auth, action } from "../../type";
 
 const initialState: Auth = {
   isSignedIn: false,

@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobleStyle } from "./globalStyles";
-import { StyledLayout } from "./components/styled/Layout.styled";
+import { StyledLayout } from "./styled/Layout.styled";
 import { getArticle } from "./stores/actions/articleActions";
 import routes from './routes'
 import { renderRoute } from "./routes"

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CommentData } from "../stores/actions/articleActions";
-import { Article } from "../stores/type";
+import { Article } from "../type";
 
 const route = "articles";
 

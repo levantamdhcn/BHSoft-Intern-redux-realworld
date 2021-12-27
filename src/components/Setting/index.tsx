@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { updateAccount } from "../../stores/actions/accountsActions";
 import { signOutAction } from "../../stores/actions/authActions";
-import { FormItem } from "../styled/Form.styled";
-import { StyledButton } from "../styled/Button.styled";
+import { FormItem } from "../../styled/Form.styled";
+import { StyledButton } from "../../styled/Button.styled";
 
 const Setting = () => {
   const [password, setPassword] = useState<string>("");

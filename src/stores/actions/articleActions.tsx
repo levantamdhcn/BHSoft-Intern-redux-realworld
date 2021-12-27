@@ -1,14 +1,14 @@
 import { Dispatch } from "react";
-import { action, Article, ArticleAction } from "../type";
+import { action, Article, ArticleAction } from "../../type";
 import {
   ADD_ARTICLE,
   ADD_COMMENT,
   DEL_ARTICLE,
   DEL_COMMENT,
   UPDATE_ARTICLE,
-} from "../constants";
+} from "../../constants";
 import { getAllArticles,createArtilce, updateArticle, deleteArticle, createComment, deleteComment, toggleFavorite } from "../../axios/articlesApis";
-import { GET_ARTICLE, TOGGLE_FAVORITE } from "../constants/articleContants";
+import { GET_ARTICLE, TOGGLE_FAVORITE } from "../../constants/articleContants";
 import { History } from "history"
 
 export interface CommentData {

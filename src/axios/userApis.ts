@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "../stores/type";
+import { User } from "../type";
 const route = "users";
 
 export const getAllUser = (accessToken: string) =>

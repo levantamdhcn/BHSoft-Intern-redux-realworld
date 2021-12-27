@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FormOutlined, SettingOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { Navbar, NavItem } from "../../styled/Navbar.styled";
+import { Navbar, NavItem } from "../../../styled/Navbar.styled";
 
 const NavBar = () => {
   const token = useSelector(

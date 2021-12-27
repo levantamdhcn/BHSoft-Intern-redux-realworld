@@ -6,8 +6,8 @@ import {
   GET_ARTICLE, 
   TOGGLE_FAVORITE, 
   UPDATE_ARTICLE 
-} from "../constants/articleContants";
-import { ArticleState, ArticleAction, Article } from "../type";
+} from "../../constants/articleContants";
+import { ArticleState, ArticleAction, Article } from "../../type";
 
 const initialState: ArticleState = {
   isLoading: true,

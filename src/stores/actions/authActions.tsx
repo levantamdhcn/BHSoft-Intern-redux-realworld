@@ -1,13 +1,13 @@
 import { Action, Dispatch } from "redux";
 import { login, logout, register } from "../../axios/authApis";
-import { SIGN_UP_SUCCESS } from "../constants/authConstants";
+import { SIGN_UP_SUCCESS } from "../../constants/authConstants";
 import { History } from 'history';
 import {
   SIGN_IN_FAILED,
   SIGN_IN_SUCCESS,
   SIGN_OUT,
   SIGN_UP_FAILED,
-} from "../constants";
+} from "../../constants";
 
 export const signUpAction = (email: String, username: String, password: String, history: History) => async (dispatch: Dispatch<Action>) => {
   try {

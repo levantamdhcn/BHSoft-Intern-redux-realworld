@@ -1,7 +1,7 @@
 import React from "react";
-import { Articles, Article } from "../../stores/type";
-import Post from "../Post";
-import { PostItem, PostList } from "../styled/Post.styled";
+import { Articles, Article } from "../../type";
+import Post from "../PostList/Post";
+import { PostItem, PostList } from "../../styled/Post.styled";
 
 interface Props {
   articles: Articles;

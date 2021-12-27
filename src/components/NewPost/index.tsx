@@ -1,9 +1,9 @@
 import { Form, Input, Row, Col } from "antd";
-import { Article } from "../../stores/type";
+import { Article } from "../../type";
 import { addArtilce, updateArticleAction } from "../../stores/actions/articleActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import { StyledButton } from "../styled/Button.styled";
+import { StyledButton } from "../../styled/Button.styled";
 import { useEffect } from "react";
 import { getArticleById } from "../../axios/articlesApis";
 /* eslint-enable no-template-curly-in-string */

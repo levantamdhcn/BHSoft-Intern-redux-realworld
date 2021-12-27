@@ -1,6 +1,6 @@
 import React from "react";
-import { Posts, Post as PostType } from "../../stores/type";
-import Post from "../Post";
+import { Posts, Post as PostType } from "../../type";
+import Post from "./Post";
 
 interface Props {
   posts: Posts;

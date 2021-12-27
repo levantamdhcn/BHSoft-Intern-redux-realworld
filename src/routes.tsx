@@ -2,17 +2,17 @@ import { Fragment } from "react"
 import { Redirect, Route, Switch } from "react-router-dom"
 import AuthGuard from "./components/AuthGuard"
 import GuestGuard from "./components/GuestGuard"
-import SignIn from "./components/SignInForm/index"
+import SignIn from "./views/auth/SignInForm/index"
 import NewPost from "./components/NewPost/index"
 import Setting from "./components/Setting/index"
-import ArticlePage from "./components/ArticlePage/index"
-import ProfilePage from "./components/ProfilePage/index"
+import ArticlePage from "./views/articles/index"
+import ProfilePage from "./views/profile/index"
 import Error from "./views/errors"
-import AppContent from "./components/Content"
+import AppContent from "./views/contents"
 import MainLayout from "./layouts/MainLayout"
 import AuthLayout from "./layouts/AuthLayout"
-import {routes as routesType, route as routeTypes} from "./stores/type" 
-import SignUp from "./components/SignUpForm"
+import {routes as routesType, route as routeTypes} from "./type" 
+import SignUp from "./views/auth/SignUpForm"
 
 
 export const renderRoute = (routes: routesType = []) => (
@@ -91,8 +91,8 @@ const routes = [
         component: Setting
     },
     {
-        guard: AuthGuard,
         exact: true,
+        layout: AuthLayout,
         path: "/article/:id",
         component: ArticlePage
     },
